@@ -1,4 +1,4 @@
-    // إنشاء قطرات المطر المحسنة
+   // إنشاء قطرات المطر المحسنة
     const rainContainer = document.getElementById('rainContainer');
     const dropCount = 40; // زيادة عدد القطرات
     
