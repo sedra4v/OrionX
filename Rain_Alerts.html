@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rain Alerts</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="Rain_Alerts.css">
-  <script src="Rain_Alert.js"></script>
-  
-</head>
-<body>
-
-  <!-- القسم الأيسر -->
-  <div class="left-panel">
-    <div class="blue-box">
-      <div class="scene">
-        <div class="cloud">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rain Alerts</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="Rain_Alerts.css">
+  </head>
+  <body>
+    <!-- القسم الأيسر -->
+    <div class="left-panel">
+      <div class="blue-box">
+        <div class="scene">
+          <div class="cloud">
             <!-- الطبقة الخلفية -->
             <div class="cloud-layer back">
-                <div class="cloud-part part1"></div>
-                <div class="cloud-part part2"></div>
-                <div class="cloud-part part3"></div>
-                <div class="cloud-part part4"></div>
-                <div class="cloud-part part5"></div>
+              <div class="cloud-part part1"></div>
+              <div class="cloud-part part2"></div>
+              <div class="cloud-part part3"></div>
+              <div class="cloud-part part4"></div>
+              <div class="cloud-part part5"></div>
             </div>
-            
+
             <!-- الطبقة الوسطى -->
             <div class="cloud-layer middle">
-                <div class="cloud-part part1"></div>
-                <div class="cloud-part part2"></div>
-                <div class="cloud-part part3"></div>
-                <div class="cloud-part part4"></div>
-                <div class="cloud-part part5"></div>
+              <div class="cloud-part part1"></div>
+              <div class="cloud-part part2"></div>
+              <div class="cloud-part part3"></div>
+              <div class="cloud-part part4"></div>
+              <div class="cloud-part part5"></div>
             </div>
-            
+
             <!-- الطبقة الأمامية -->
             <div class="cloud-layer front">
-                <div class="cloud-part part1"></div>
-                <div class="cloud-part part2"></div>
-                <div class="cloud-part part3"></div>
-                <div class="cloud-part part4"></div>
+              <div class="cloud-part part1"></div>
+              <div class="cloud-part part2"></div>
+              <div class="cloud-part part3"></div>
+              <div class="cloud-part part4"></div>
             </div>
-            
+
             <!-- الصواعق -->
             <div class="lightning lightning1"></div>
             <div class="lightning lightning2"></div>
@@ -49,59 +49,66 @@
             <div class="lightning lightning4"></div>
             <div class="lightning lightning5"></div>
             <div class="lightning lightning6"></div>
-            
+
             <!-- ظل السحابة -->
             <div class="cloud-shadow"></div>
-        </div>
-        
-        <!-- المطر خارج الغيمة -->
-        <div class="rain" id="rainContainer"></div>
-      </div>
+          </div>
 
-      <!-- النص على يمين الغيمة -->
-      <div class="cloud-text">
-        Answer a few quick questions <br>
-        about your day and habits,<br>
-        and we'll warn you about <br>
-        rain in a way that fits<br>
-        you perfectly<br>
-      </div>
-    </div>
-  </div>
-
-  <!-- القسم الأيمن -->
-  <div class="right-panel">
-        <div class="rain-alert-box">
-                <h>Let's Make Your Rain Alerts Just for You!</h>
+          <!-- المطر خارج الغيمة -->
+          <div class="rain" id="rainContainer"></div>
         </div>
 
-    <div class="field">
-      <label for="where"><i class="fas fa-home"></i> Where do you live?</label>
-      <input id="where" type="text" placeholder="Enter your location" />
+        <!-- النص على يمين الغيمة -->
+        <div class="cloud-text">
+          Answer a few quick questions <br />
+          about your day and habits,<br />
+          and we'll warn you about <br />
+          rain in a way that fits<br />
+          you perfectly<br />
+        </div>
+      </div>
     </div>
 
-    <div class="field">
-      <label for="how"><i class="fas fa-bus"></i> How do you usually get around?</label>
-      <select id="how">
-        <option>Please choose one</option>
-        <option>Car</option>
-        <option>Public Transport</option>
-        <option>Walk/Bike</option>
-      </select>
+    <!-- القسم الأيمن -->
+    <div class="right-panel">
+      <div class="rain-alert-box">
+        <h>Let's Make Your Rain Alerts Just for You!</h>
+      </div>
+
+      <div class="field">
+        <label for="where"
+          ><i class="fas fa-home"></i> Where do you live?</label
+        >
+        <input id="where" type="text" placeholder="Enter your location" />
+      </div>
+
+      <div class="field">
+        <label for="how"
+          ><i class="fas fa-bus"></i> How do you usually get around?</label
+        >
+        <select id="how">
+          <option>Please choose one</option>
+          <option>Car</option>
+          <option>Public Transport</option>
+          <option>Walk/Bike</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="job"
+          ><i class="fas fa-person-digging"></i> What is your job?</label
+        >
+        <select id="job">
+          <option>Please choose one</option>
+          <option>Student</option>
+          <option>Office</option>
+          <option>Outdoor</option>
+        </select>
+      </div>
+
+      <button class="btn">View Result</button>
     </div>
 
-    <div class="field">
-      <label for="job"><i class="fas fa-person-digging"></i> What is your job?</label>
-      <select id="job">
-        <option>Please choose one</option>
-        <option>Student</option>
-        <option>Office</option>
-        <option>Outdoor</option>
-      </select>
-    </div>
-
-    <button class="btn">View Result</button>
-  </div>
-
-</body>
+    <script src="Rain_Alerts.js"></script>
+  </body>
 </html>
