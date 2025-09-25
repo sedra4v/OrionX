@@ -1,98 +1,191 @@
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      display: flex;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #000C17;
-      color: #fff;
-    }
+      body {
+        display: flex;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #000c17;
+        color: #fff;
+      }
 
-    /* القسم الأيسر (الصورة + الغيمة + النص) */
-    .left-panel {
-      position: relative;
-      width: 40%;
-      height: 100%;
-      background: url("img/NasaImg.png") no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      /* القسم الأيسر (الصورة + الغيمة + النص) */
+      .left-panel {
+        position: relative;
+        width: 40%;
+        height: 100%;
+        background: url("NasaImg.png") no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-    /* خلفية زرقاء وراء الغيمة + النص */
-    .blue-box {
-      position: relative;
-      background-color: rgba(0, 12, 23, 0.8);
-      padding: 30px 40px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      backdrop-filter: blur(5px);
-    }
+      /* خلفية زرقاء وراء الغيمة + النص */
+      .blue-box {
+        position: relative;
+        background-color: rgba(0, 12, 23, 0.8);
+        padding: 30px 40px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        backdrop-filter: blur(5px);
+      }
 
-    .scene {
-      position: relative;
-      width: 220px;
-      height: 200px;
-      perspective: 800px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .cloud {
-      position: relative;
-      width: 180px;
-      height: 90px;
-      transform-style: preserve-3d;
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    .cloud-layer {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-    }
-    
-    .cloud-part {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 50%;
-      filter: blur(1.5px);
-      box-shadow: 
-          0 0 15px rgba(255, 255, 255, 0.8),
+      .scene {
+        position: relative;
+        width: 220px;
+        height: 200px;
+        perspective: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .cloud {
+        position: relative;
+        width: 180px;
+        height: 90px;
+        transform-style: preserve-3d;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .cloud-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+      }
+
+      .cloud-part {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 50%;
+        filter: blur(1.5px);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
           inset 0 -3px 8px rgba(200, 200, 200, 0.3);
-      transition: transform 0.3s ease;
-    }
-    
-    /* طبقة أمامية */
-    .front .part1 { width: 50px; height: 50px; top: 10px; left: 20px; transform: translateZ(25px); }
-    .front .part2 { width: 65px; height: 65px; top: 5px; left: 50px; transform: translateZ(20px); }
-    .front .part3 { width: 45px; height: 45px; top: 15px; left: 90px; transform: translateZ(30px); }
-    .front .part4 { width: 60px; height: 60px; top: 8px; left: 115px; transform: translateZ(22px); }
-    
-    /* طبقة وسطى */
-    .middle .part1 { width: 40px; height: 40px; top: 20px; left: 8px; transform: translateZ(15px); opacity: 0.8; }
-    .middle .part2 { width: 50px; height: 50px; top: 15px; left: 35px; transform: translateZ(10px); opacity: 0.8; }
-    .middle .part3 { width: 55px; height: 55px; top: 12px; left: 70px; transform: translateZ(12px); opacity: 0.8; }
-    .middle .part4 { width: 45px; height: 45px; top: 22px; left: 110px; transform: translateZ(18px); opacity: 0.8; }
-    .middle .part5 { width: 40px; height: 40px; top: 25px; left: 135px; transform: translateZ(20px); opacity: 0.8; }
-    
-    /* طبقة خلفية */
-    .back .part1 { width: 35px; height: 35px; top: 28px; left: 5px; transform: translateZ(5px); opacity: 0.6; }
-    .back .part2 { width: 45px; height: 45px; top: 22px; left: 30px; transform: translateZ(0); opacity: 0.6; }
-    .back .part3 { width: 40px; height: 40px; top: 30px; left: 60px; transform: translateZ(8px); opacity: 0.6; }
-    .back .part4 { width: 50px; height: 50px; top: 20px; left: 85px; transform: translateZ(5px); opacity: 0.6; }
-    .back .part5 { width: 35px; height: 35px; top: 33px; left: 120px; transform: translateZ(12px); opacity: 0.6; }
-    
-    /* ظل السحابة */
-    .cloud-shadow {
+        transition: transform 0.3s ease;
+      }
+
+      /* طبقة أمامية */
+      .front .part1 {
+        width: 50px;
+        height: 50px;
+        top: 10px;
+        left: 20px;
+        transform: translateZ(25px);
+      }
+      .front .part2 {
+        width: 65px;
+        height: 65px;
+        top: 5px;
+        left: 50px;
+        transform: translateZ(20px);
+      }
+      .front .part3 {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        left: 90px;
+        transform: translateZ(30px);
+      }
+      .front .part4 {
+        width: 60px;
+        height: 60px;
+        top: 8px;
+        left: 115px;
+        transform: translateZ(22px);
+      }
+
+      /* طبقة وسطى */
+      .middle .part1 {
+        width: 40px;
+        height: 40px;
+        top: 20px;
+        left: 8px;
+        transform: translateZ(15px);
+        opacity: 0.8;
+      }
+      .middle .part2 {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        left: 35px;
+        transform: translateZ(10px);
+        opacity: 0.8;
+      }
+      .middle .part3 {
+        width: 55px;
+        height: 55px;
+        top: 12px;
+        left: 70px;
+        transform: translateZ(12px);
+        opacity: 0.8;
+      }
+      .middle .part4 {
+        width: 45px;
+        height: 45px;
+        top: 22px;
+        left: 110px;
+        transform: translateZ(18px);
+        opacity: 0.8;
+      }
+      .middle .part5 {
+        width: 40px;
+        height: 40px;
+        top: 25px;
+        left: 135px;
+        transform: translateZ(20px);
+        opacity: 0.8;
+      }
+
+      /* طبقة خلفية */
+      .back .part1 {
+        width: 35px;
+        height: 35px;
+        top: 28px;
+        left: 5px;
+        transform: translateZ(5px);
+        opacity: 0.6;
+      }
+      .back .part2 {
+        width: 45px;
+        height: 45px;
+        top: 22px;
+        left: 30px;
+        transform: translateZ(0);
+        opacity: 0.6;
+      }
+      .back .part3 {
+        width: 40px;
+        height: 40px;
+        top: 30px;
+        left: 60px;
+        transform: translateZ(8px);
+        opacity: 0.6;
+      }
+      .back .part4 {
+        width: 50px;
+        height: 50px;
+        top: 20px;
+        left: 85px;
+        transform: translateZ(5px);
+        opacity: 0.6;
+      }
+      .back .part5 {
+        width: 35px;
+        height: 35px;
+        top: 33px;
+        left: 120px;
+        transform: translateZ(12px);
+        opacity: 0.6;
+      }
+
+      /* ظل السحابة */
+      .cloud-shadow {
         position: absolute;
         width: 160px;
         height: 20px;
@@ -103,24 +196,28 @@
         filter: blur(10px);
         animation: shadowMove 8s ease-in-out infinite;
         z-index: -1;
-    }
-    
-    /* تأثيرات إضافية للواقعية */
-    .cloud::before {
-        content: '';
+      }
+
+      /* تأثيرات إضافية للواقعية */
+      .cloud::before {
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+        background: radial-gradient(
+          ellipse at center,
+          rgba(255, 255, 255, 0.4) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
         border-radius: 50%;
         top: 0;
         left: 0;
         z-index: 5;
         pointer-events: none;
-    }
-    
-    /* الصواعق */
-    .lightning {
+      }
+
+      /* الصواعق */
+      .lightning {
         position: absolute;
         width: 3px;
         background: linear-gradient(to bottom, #ffff80, #ffff00, #ffaa00);
@@ -128,58 +225,58 @@
         opacity: 0;
         z-index: 10;
         border-radius: 2px;
-    }
-    
-    .lightning1 {
+      }
+
+      .lightning1 {
         height: 50px;
         top: 90px;
         left: 40px;
         transform: skewX(-5deg);
         animation: flash1 5s infinite;
-    }
-    
-    .lightning2 {
+      }
+
+      .lightning2 {
         height: 60px;
         top: 85px;
         left: 70px;
         transform: skewX(3deg);
         animation: flash2 6s infinite;
-    }
-    
-    .lightning3 {
+      }
+
+      .lightning3 {
         height: 45px;
         top: 92px;
         left: 100px;
         transform: skewX(-2deg);
         animation: flash3 7s infinite;
-    }
-    
-    .lightning4 {
+      }
+
+      .lightning4 {
         height: 55px;
         top: 88px;
         left: 130px;
         transform: skewX(4deg);
         animation: flash4 8s infinite;
-    }
-    
-    .lightning5 {
+      }
+
+      .lightning5 {
         height: 48px;
         top: 94px;
         left: 60px;
         transform: skewX(-3deg);
         animation: flash5 9s infinite;
-    }
-    
-    .lightning6 {
+      }
+
+      .lightning6 {
         height: 52px;
         top: 87px;
         left: 90px;
         transform: skewX(2deg);
         animation: flash6 10s infinite;
-    }
-    
-    /* المطر المحسّن */
-    .rain {
+      }
+
+      /* المطر المحسّن */
+      .rain {
         position: absolute;
         width: 180px;
         height: 120px;
@@ -187,189 +284,255 @@
         left: 0;
         overflow: visible;
         z-index: 2;
-    }
-    
-    .drop {
+      }
+
+      .drop {
         position: absolute;
         width: 2px;
         height: 15px;
-        background: linear-gradient(to bottom, 
-            rgba(255, 255, 255, 0.9) 0%, 
-            rgba(200, 220, 255, 0.8) 30%, 
-            rgba(150, 180, 255, 0.6) 70%, 
-            rgba(120, 160, 255, 0.4) 100%);
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.9) 0%,
+          rgba(200, 220, 255, 0.8) 30%,
+          rgba(150, 180, 255, 0.6) 70%,
+          rgba(120, 160, 255, 0.4) 100%
+        );
         border-radius: 0 0 8px 8px;
         animation: rainFall linear infinite;
         box-shadow: 0 0 3px rgba(180, 200, 255, 0.5);
-    }
-    
-    /* حركات الطفو والتدوير */
-    @keyframes float {
-        0%, 100% { 
-            transform: translateY(0) rotateX(0) rotateY(0); 
+      }
+
+      /* حركات الطفو والتدوير */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotateX(0) rotateY(0);
         }
-        25% { 
-            transform: translateY(-5px) rotateX(2deg) rotateY(1deg); 
+        25% {
+          transform: translateY(-5px) rotateX(2deg) rotateY(1deg);
         }
-        50% { 
-            transform: translateY(-3px) rotateX(4deg) rotateY(-1deg); 
+        50% {
+          transform: translateY(-3px) rotateX(4deg) rotateY(-1deg);
         }
-        75% { 
-            transform: translateY(-6px) rotateX(1deg) rotateY(2deg); 
+        75% {
+          transform: translateY(-6px) rotateX(1deg) rotateY(2deg);
         }
-    }
-    
-    @keyframes shadowMove {
-        0%, 100% { 
-            transform: scale(1) translateX(0);
-            opacity: 0.4;
+      }
+
+      @keyframes shadowMove {
+        0%,
+        100% {
+          transform: scale(1) translateX(0);
+          opacity: 0.4;
         }
-        25% { 
-            transform: scale(1.1) translateX(-3px);
-            opacity: 0.5;
+        25% {
+          transform: scale(1.1) translateX(-3px);
+          opacity: 0.5;
         }
-        50% { 
-            transform: scale(0.9) translateX(2px);
-            opacity: 0.3;
+        50% {
+          transform: scale(0.9) translateX(2px);
+          opacity: 0.3;
         }
-        75% { 
-            transform: scale(1.05) translateX(-1px);
-            opacity: 0.45;
+        75% {
+          transform: scale(1.05) translateX(-1px);
+          opacity: 0.45;
         }
-    }
-    
-    @keyframes flash1 {
-        0%, 85% { opacity: 0; }
-        86%, 88% { opacity: 1; }
-        89%, 100% { opacity: 0; }
-    }
-    
-    @keyframes flash2 {
-        0%, 70% { opacity: 0; }
-        71%, 73% { opacity: 1; }
-        74%, 100% { opacity: 0; }
-    }
-    
-    @keyframes flash3 {
-        0%, 90% { opacity: 0; }
-        91%, 93% { opacity: 1; }
-        94%, 100% { opacity: 0; }
-    }
-    
-    @keyframes flash4 {
-        0%, 80% { opacity: 0; }
-        81%, 83% { opacity: 1; }
-        84%, 100% { opacity: 0; }
-    }
-    
-    @keyframes flash5 {
-        0%, 75% { opacity: 0; }
-        76%, 78% { opacity: 1; }
-        79%, 100% { opacity: 0; }
-    }
-    
-    @keyframes flash6 {
-        0%, 65% { opacity: 0; }
-        66%, 68% { opacity: 1; }
-        69%, 100% { opacity: 0; }
-    }
-    
-    @keyframes rainFall {
-        0% { 
-            transform: translateY(-15px) translateX(0) rotateZ(0deg); 
-            opacity: 0; 
+      }
+
+      @keyframes flash1 {
+        0%,
+        85% {
+          opacity: 0;
         }
-        10% { 
-            opacity: 0.9; 
+        86%,
+        88% {
+          opacity: 1;
         }
-        90% { 
-            opacity: 0.7; 
+        89%,
+        100% {
+          opacity: 0;
         }
-        100% { 
-            transform: translateY(120px) translateX(5px) rotateZ(0deg); 
-            opacity: 0; 
+      }
+
+      @keyframes flash2 {
+        0%,
+        70% {
+          opacity: 0;
         }
-    }
-    
-    /* تأثيرات تفاعلية */
-    .cloud-part:hover {
+        71%,
+        73% {
+          opacity: 1;
+        }
+        74%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes flash3 {
+        0%,
+        90% {
+          opacity: 0;
+        }
+        91%,
+        93% {
+          opacity: 1;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes flash4 {
+        0%,
+        80% {
+          opacity: 0;
+        }
+        81%,
+        83% {
+          opacity: 1;
+        }
+        84%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes flash5 {
+        0%,
+        75% {
+          opacity: 0;
+        }
+        76%,
+        78% {
+          opacity: 1;
+        }
+        79%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes flash6 {
+        0%,
+        65% {
+          opacity: 0;
+        }
+        66%,
+        68% {
+          opacity: 1;
+        }
+        69%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes rainFall {
+        0% {
+          transform: translateY(-15px) translateX(0) rotateZ(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(120px) translateX(5px) rotateZ(0deg);
+          opacity: 0;
+        }
+      }
+
+      /* تأثيرات تفاعلية */
+      .cloud-part:hover {
         transform: scale(1.05) translateZ(5px);
         filter: blur(1px) brightness(1.1);
-    }
+      }
 
-    /* النص بجانب الغيمة */
-    .cloud-text {
-      font-size: 16px;
-      line-height: 1.6;
-      color: #fff;
-      text-shadow: 0 0 6px rgba(0,0,0,0.6);
-    }
+      /* النص بجانب الغيمة */
+      .cloud-text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #fff;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+      }
 
-    /* panel2*/
-    .right-panel {
-      width: 60%;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; 
-    }
-    .rain-alert-box {
-    border-radius: 20px;
-    padding: 10px;
-    height: 50px;
-    max-width: 550px;
-    text-align: center;
-    border: 2px solid #b1b2ad;
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    margin: 50px;
+      /* panel2*/
+      .right-panel {
+        width: 60%;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+      }
+      
+      .rain-alert-box {
+        border-radius: 20px;
+        padding: 20px;
+        height: auto;
+        min-height: 80px;
+        height: 50px;
+        max-width: 550px;
+        text-align: center;
+        border: 2px solid #b1b2ad;
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+        margin: 20px 0 40px 0;
+      }
+        .rain-alert-box h {
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+      }
 
-        }
-    .field i {
-    color: #9dc284;
-    margin-right: 10px;
-    font-size: 24px;
-        }
-    .field {
-    margin: 20px 0;
-    width: 100%;
-    max-width: 550px;
-    }
+      .field i {
+        color: #9dc284;
+        margin-right: 10px;
+        font-size: 24px;
+      }
+      .field {
+        margin: 20px 0;
+        width: 100%;
+         max-width: 550px;
+      }
 
-    .field label {
-      display: block;
-      margin-bottom: 8px;
-    }
+      .field label {
+        display: block;
+        margin-bottom: 8px;
+      }
 
-    .field input,
-    .field select {
-      background-color: #F3F3F1;
-      color: #435465;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      max-width: 300px;
-      border-radius: 15px;
-      font-size: 16px;
-    }
+      .field input,
+      .field select {
+        background-color: #f3f3f1;
+        color: #435465;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 15px;
+        font-size: 16px;
+      }
 
-    .btn {
-      background-color: #9DC28491;
-      color: #FFFFFF;
-      border: none;
-      padding: 10px;
-      width: 30%;
-      border-radius: 20px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-      font-size: 16px;
-      max-width: 200px;
-    }
+      .btn {
+        background-color: #9dc28491;
+        color: #ffffff;
+        border: none;
+        padding: 10px;
+        width: 30%;
+        border-radius: 20px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto;
+        font-size: 16px;
+        max-width: 200px; 
+      }
 
-    .btn:hover {
-      background-color: #8ab573;
-      transform: translateY(-2px);
-    }
+      .btn:hover {
+        background-color: #8ab573;
+        transform: translateY(-2px);
+      }
