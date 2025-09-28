@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyCue</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      background: url("img/bg1.jpg") no-repeat center center/cover;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 🌞 الشمس */
+    .sun {
+      position: absolute;
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      opacity: 1;
+      z-index: 0;
+    }
+
+    /* 🪐 الكواكب */
+    .planet {
+      position: absolute;
+      width: 100px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .planet:hover { transform: scale(1.1); }
+
+    .p1 { top: 44%; left: 3%; width: 9%;}
+    .p2 { top: 20%; left: 13%; width: 9%; }
+    .p3 { top: 0%; left: 37%; width: 15%; }
+    .p4 { top: 2%; left: 54%; width: 14%; }
+    .p5 { top: 9%; left: 69%; width: 12%; }
+    .p6 { top: 21%; left: 81%; width: 9%;}
+    .p7 { top: 33%; left: 92%; }
+
+    /* 👨‍🚀 رائد الفضاء */
+    .astronaut {
+      position: absolute;
+      top: 15%;
+      left: 15%;
+      width: 380px;
+      z-index: 2;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* ✨ النصوص */
+    .welcome {
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .tagline {
+      position: absolute;
+      top: 60px;
+      left: 40px;
+      font-size: 18px;
+      font-style: italic;
+      color: #f4a261;
+    }
+
+    .title {
+      position: absolute;
+      top: 40%;
+      right: 34%;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 48%;
+      right: 30%;
+      font-size: 18px;
+      font-style: italic;
+      color: #ddd;
+    }
+
+    /* 🔘 الزر */
+    .btn {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 36px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      color: #222;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  
+
+    <!-- الكواكب -->
+    <img src="img/planet1.png" alt="Planet1" class="planet p1">
+    <img src="img/planet2.png" alt="Planet2" class="planet p2">
+    <img src="img/planet3.png" alt="Planet3" class="planet p3">
+    <img src="img/planet4.png" alt="Planet4" class="planet p4">
+    <img src="img/planet5.png" alt="Planet5" class="planet p5">
+    <img src="img/planet6.png" alt="Planet6" class="planet p6">
+    <img src="img/planet7.png" alt="Planet7" class="planet p7">
+
+    <!-- رائد الفضاء -->
+    <img src="img/img2.png" alt="Astronaut" class="astronaut">
+
+    <!-- النصوص -->
+    <div class="welcome">Welcome to SkyCue! ⛅</div>
+    <div class="tagline">Your friendly rain guide</div>
+
+    <div class="title">Hi ! I’m SkyCue ⛅</div>
+    <div class="subtitle">My job is to make checking the rain easy<br>for you and guide you to know all about it</div>
+
+    <!-- الزر -->
+    <button class="btn">Get start</button>
+
+    <!-- نص أسفل -->
+    <div class="footer">Let’s make rainy days easy to plan! 🌧️</div>
+  </div>
+</body>
+</html>
