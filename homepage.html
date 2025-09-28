@@ -1,14 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
-    <title>get started </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyCue</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+     background: url("img/bg1.jpg");  
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      height: 90vh;   
+      overflow: hidden;
+    }
+
+    .planet {
+      position: absolute;
+      width: 100px;
+      opacity: 0;
+      transform: scale(0.5) translateY(-200px);
+    }
+     
+    
+    .p1 { top: 44%; left: 3%; width: 11%; animation: showPlanet 0.5s ease forwards 1.2s;}
+    .p2 { top: 20%; left: 13%; width: 9%;  animation: showPlanet 1s ease forwards 2s;}
+    .p3 { top: -1%; left: 37%; width: 16%;  animation: showPlanet 1.5s ease forwards 2.5s;}
+    .p4 { top: 0%; left: 54%; width: 14%;  animation: showPlanet 1s ease forwards 2.5s;}
+    .p5 { top: 9%; left: 69%; width: 12%; animation: showPlanet 0.8s ease forwards 1.5s; }
+    .p6 { top: 23%; left: 83%; width: 9%; animation: showPlanet 0.5s ease forwards 1.2s;}
+    .p7 { top: 44%; left: 92%;animation: showPlanet 0.5s ease forwards 1.2s; }
+/* 
+ .astronaut { position: absolute; top: -200px; left: 17%; width: 393px; opacity: 0; 
+    animation: dropAstronaut 1.5s ease forwards 5.5s; 
+animation: float 3s ease-in-out infinite; } */
+   
+ 
+    .astronaut {
+      position: absolute;
+      top: 13%;
+      left: 15%;
+      width: 393px;
+      z-index: 2;
+      animation: float 2.5s ease-in-out infinite;
+    }
+      @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }}
+    
+
+   
+    .welcome {
+      position: absolute;
+      top: 15px;
+      left: 40px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .tagline {
+      position: absolute;
+      top: 50px;
+      left: 40px;
+      font-size: 18px;
+      font-style: italic;
+      color: #f4a261;
+    }
+
+    .title {
+      position: absolute;
+      top: 40%;
+      right: 34%;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 48%;
+      right: 30%;
+      font-size: 18px;
+      font-style: italic;
+      color: #ddd;
+    }
+
+    .btn {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 36px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      color: #222;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+    }
+    .btn:hover
+    {
+        background-color: #f4a261;
+        margin-top: 10px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      color: #ddd;
+    }
+
+  
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes showPlanet {
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes dropAstronaut {
+      to {
+        top: 40%;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        
+  <div class="container">
+   
+   
+    <img src="img/planet1.png" alt="Planet1" class="planet p1">
+    <img src="img/planet2.png" alt="Planet2" class="planet p2">
+    <img src="img/planet3.png" alt="Planet3" class="planet p3">
+    <img src="img/planet4.png" alt="Planet4" class="planet p4">
+    <img src="img/planet5.png" alt="Planet5" class="planet p5">
+    <img src="img/planet6.png" alt="Planet6" class="planet p6">
+    <img src="img/planet7.png" alt="Planet7" class="planet p7">
+
+    <img src="img/img2.png" alt="Astronaut" class="astronaut">
+
+  
+    <div class="welcome">Welcome to SkyCue! ⛅</div>
+    <div class="tagline">Your friendly rain guide</div>
+
+    <div class="title">Hi ! I’m SkyCue ⛅</div>
+    <div class="subtitle">My job is to make checking the rain easy<br>for you and guide you to know all about it</div>
+
+   
+    <button class="btn">Get start</button>
+
+    
+    <div class="footer">Let’s make rainy days easy to plan! 🌧️</div>
     </div>
 </body>
 </html>
