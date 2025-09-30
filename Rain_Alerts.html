@@ -1,87 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rain Alerts</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="Rain_Alerts.css">
-  </head>
-  <body>
-    <!-- القسم الأيسر -->
-    <div class="left-panel">
-      <div class="blue-box">
-        <div class="scene">
-          <div class="cloud">
-            <!-- الطبقة الخلفية -->
-            <div class="cloud-layer back">
-              <div class="cloud-part part1"></div>
-              <div class="cloud-part part2"></div>
-              <div class="cloud-part part3"></div>
-              <div class="cloud-part part4"></div>
-              <div class="cloud-part part5"></div>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rain Alerts</title>
+  <link rel="stylesheet" href="Rain_Alerts.css">
+</head>
+<body>
+  <div class="page-background">
+  <video autoplay muted loop class="bg-video">
+    <source src="video/NasaVid.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  </div>
+   <!-- Right panel -->
+  <div class="panel">
+    <img src="" alt="Astronaut" class="astronaut">
 
-            <!-- الطبقة الوسطى -->
-            <div class="cloud-layer middle">
-              <div class="cloud-part part1"></div>
-              <div class="cloud-part part2"></div>
-              <div class="cloud-part part3"></div>
-              <div class="cloud-part part4"></div>
-              <div class="cloud-part part5"></div>
-            </div>
-
-            <!-- الطبقة الأمامية -->
-            <div class="cloud-layer front">
-              <div class="cloud-part part1"></div>
-              <div class="cloud-part part2"></div>
-              <div class="cloud-part part3"></div>
-              <div class="cloud-part part4"></div>
-            </div>
-
-            <!-- الصواعق -->
-            <div class="lightning lightning1"></div>
-            <div class="lightning lightning2"></div>
-            <div class="lightning lightning3"></div>
-            <div class="lightning lightning4"></div>
-            <div class="lightning lightning5"></div>
-            <div class="lightning lightning6"></div>
-
-            <!-- ظل السحابة -->
-            <div class="cloud-shadow"></div>
-          </div>
-
-          <!-- المطر خارج الغيمة -->
-          <div class="rain" id="rainContainer"></div>
-        </div>
-
-        <!-- النص على يمين الغيمة -->
-        <div class="cloud-text">
-          Answer a few quick questions <br />
-          about your day and habits,<br />
-          and we'll warn you about <br />
-          rain in a way that fits<br />
-          you perfectly<br />
-        </div>
-      </div>
+    <div class="field">
+      <label for="where">
+        <i class="fas fa-home"></i> Where do you live?
+      </label>
+      <select id="where">
+        <option>Please choose one</option>
+        <option>Amman</option>
+        <option>Zarqa</option>
+        <option>Irbid</option>
+        <option>Madaba</option>
+        <option>Salt</option>
+        <option>Karak</option>
+        <option>Jerash</option>
+        <option>Ajloun</option>
+        <option>Aqaba</option>
+        <option>Tafilah</option>
+        <option>Mafraq</option>
+        <option>Ma'an</option>
+      </select>
     </div>
-
-    <!-- القسم الأيمن -->
-    <div class="right-panel">
-      <div class="rain-alert-box">
-        <h>Let's Make Your Rain Alerts Just for You!</h>
-      </div>
-
-      <div class="field">
-        <label for="where"
-          ><i class="fas fa-home"></i> Where do you live?</label
-        >
-        <input id="where" type="text" placeholder="Enter your location" />
-      </div>
-
       <div class="field">
         <label for="how"
           ><i class="fas fa-bus"></i> How do you usually get around?</label
@@ -106,10 +61,8 @@
         </select>
       </div>
 
-      <button class="btn">View Result</button>
-    </div>
+    <button class="btn">view Result</button>
+  </div>
 
-
-  </body>
-    <script src="Rain_Alerts.js"></script>
+</body>
 </html>
