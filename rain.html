@@ -187,7 +187,8 @@
     }
 
     /* === Stats Box === */
-    .weather-stats {
+
+.weather-stats {
       flex: 2;
       background: rgba(0,0,0,.4);
       border-radius: 12px;
@@ -335,7 +336,9 @@
     const weatherData = {
       "Amman": [
         {"date":"2025-09-17","precip_mm_day":0.01,"humidity_pct":55.0,"wind_speed_ms":3.2,"temp_day_max_c":32.2,"temp_night_min_c":16.7},
-        {"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":57.5,"wind_speed_ms":3.9,"temp_day_max_c":32.6,"temp_night_min_c":16.0},
+
+
+{"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":57.5,"wind_speed_ms":3.9,"temp_day_max_c":32.6,"temp_night_min_c":16.0},
         {"date":"2025-09-19","precip_mm_day":0.09,"humidity_pct":59.1,"wind_speed_ms":4.0,"temp_day_max_c":31.2,"temp_night_min_c":19.6},
         {"date":"2025-09-20","precip_mm_day":0.0,"humidity_pct":39.5,"wind_speed_ms":2.2,"temp_day_max_c":32.6,"temp_night_min_c":16.8},
         {"date":"2025-09-21","precip_mm_day":0.0,"humidity_pct":23.2,"wind_speed_ms":2.6,"temp_day_max_c":34.0,"temp_night_min_c":17.6},
@@ -371,7 +374,8 @@
       ]
     };
 
-    // 2) عناصر DOM
+
+// 2) عناصر DOM
     const container = document.getElementById("mainContainer");
     const hideBtn = document.getElementById("hideNavBtn");
     const showBtn = document.getElementById("showNavBtn");
@@ -386,7 +390,6 @@
     // 3) إظهار/إخفاء الـ Navbar
     hideBtn.addEventListener("click",()=>container.classList.add("collapsed"));
     showBtn.addEventListener("click",()=>container.classList.remove("collapsed"));
-
 
     // 4) أدوات مساعدة
     const parseDate = d => new Date(d+"T00:00:00");
@@ -412,33 +415,6 @@
         tips.push("It's quite cold. Wear warm clothes and consider layers.");
       } else {
         tips.push("The weather is moderate. Light, comfortable clothing is fine.");
-
-    showBtn.addEventListener("click", () => {
-      container.classList.remove("collapsed");
-    });
-
-    // Doughnut Chart
-    const ctxDoughnut = document.getElementById("doughnutChart").getContext("2d");
-    new Chart(ctxDoughnut, {
-      type: "doughnut",
-      data: {
-        labels: ["Sunny", "Cloudy", "Rainy"],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ["#FFD700", "#36A2EB", "#4BC0C0"],
-          borderColor: ["#fff","#fff","#fff"],
-          borderWidth: 2
-        }]
-      },
-      
-      options: {
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { color: "#fff" }
-          }
-        }
-
       }
       // Humidity
       if(day.humidity_pct > 60){
@@ -480,8 +456,8 @@
               <p>Last day: ${latest.date}</p>
               <p>Hum: ${latest.humidity_pct.toFixed(0)}% · Wind: ${latest.wind_speed_ms.toFixed(1)} m/s · Rain: ${latest.precip_mm_day.toFixed(2)} mm</p>
             </div>
-            <div class="number">${latest.temp_day_max_c.toFixed(1)}°C</div>
-          `;
+            <div class="number">${latest.temp_day_max_c.toFixed(1)}°C</div>`
+          ;
           card.addEventListener("click",()=>selectCity(city));
           cardsContainer.appendChild(card);
         });
@@ -493,7 +469,7 @@
       }
     }
 
-    // 6) البحث
+// 6) البحث
     function doSearch(){
       const q = searchInput.value;
       // فلترة الكروت
@@ -542,7 +518,7 @@
         data:{
           labels,
           datasets:[{
-            label:`Max Temp (°C) — ${city}`,
+            label: `Max Temp (°C) — ${city}`,
             data:temps,
             borderColor:"#FF6384",
             backgroundColor:"rgba(255,99,132,0.2)",
@@ -565,8 +541,7 @@
       const {avgHum, avgWind, entries} = computeSeries(city);
       const latest = getLatestDay(entries);
       cityBadge.textContent = city;
-      citySummary.textContent =
-        `Latest: ${latest.date} • Max ${latest.temp_day_max_c.toFixed(1)}°C • Hum ${latest.humidity_pct.toFixed(0)}% • Wind ${latest.wind_speed_ms.toFixed(1)} m/s`;
+      citySummary.textContent = `Latest: ${latest.date} • Max ${latest.temp_day_max_c.toFixed(1)}°C • Hum ${latest.humidity_pct.toFixed(0)}% • Wind ${latest.wind_speed_ms.toFixed(1)} m/s`;
 
       const tips = buildTipsFromDay(latest);
       tipsList.innerHTML = "";
@@ -593,6 +568,12 @@
     })();
 
 
+
+
+
+
+
+
 function updateCards(city){
   const latest = getLatestDay(weatherData[city]);
   if(!latest) return;
@@ -608,13 +589,12 @@ document.getElementById("dayAlert").textContent =
   latest.temp_day_max_c > 32 ? "High temperature" : 
   (latest.temp_day_max_c < 15 ? "Cold" : "Normal");
 
-  
-
 document.getElementById("nightAlert").textContent = 
   latest.temp_night_min_c < 15 ? "Cold at night" : "Normal";
 
 document.getElementById("windAlert").textContent = 
   latest.wind_speed_ms > 5 ? "Strong wind" : "Normal";
+
 
 document.getElementById("humidityAlert").textContent = 
   latest.humidity_pct > 60 ? "High humidity" : 
