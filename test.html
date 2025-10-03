@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rain Alerts</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+         * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        overflow: hidden;
+        height: 100vh;
+        background: #000C17;
+    }
+
+    .page-background {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    /* Form Container */
+    .container {
+        position: absolute;
+        bottom: 0;
+        right: 160px;
+        width: 600px;
+        height: 70vh;
+        background: rgba(255, 255, 255, 0.363);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Astronaut */
+    .astronaut-container {
+        position: absolute;
+        bottom: 70vh;
+        left: calc(100% - 770px);
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        transform: translateY(25%);
+    }
+
+    .astronaut {
+        width: 150px;
+        height: auto;
+    }
+
+    /* Bubbles */
+    .bubbles {
+        position: absolute;
+        top: -25px; 
+        left: -40px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+        transform: scaleX(-1); 
+    }
+
+    .bubble {
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        opacity: 0.95;
+    }
+
+    .bubble:nth-child(1) { 
+        width: 40px; 
+        height: 40px; 
+        transform: translateX(90px);
+    }
+    .bubble:nth-child(2) { 
+        width: 24px; 
+        height: 24px; 
+        transform: translateX(60px);
+    }
+    .bubble:nth-child(3) { 
+        width: 14px; 
+        height: 14px; 
+        transform: translateX(20px);
+    }
+
+    /* Speech Bubble */
+    .speech-bubble {
+        position: absolute;
+        top: 10px;   
+        left: 50px;
+        background: white;
+        padding: 25px 30px;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        max-width: 400px;
+        width: 380px;
+        text-align: center;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+
+    .speech-bubble h1 {
+        color: #970800;
+        font-size: 27px;
+        margin-bottom: 14px;
+        font-weight: bold;
+    }
+
+    .speech-bubble p {
+        color: #1E1E1E;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    /* Form Fields */
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 80%;
+        align-items: center;
+    }
+
+    .field {
+        width: 100%;
+    }
+
+    .field label {
+        display: block;
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .field label i {
+        margin-right: 8px;
+        color: #970800;
+        font-size: 22px; 
+    }
+
+    .field select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid #ddd;
+        border-radius: 20px;
+        background: white;
+        font-size: 15px;
+        height: 45px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .field select:focus {
+        border-color: #970800;
+    }
+
+    .btn {
+        background: #970800;
+        color: white;
+        border: none;
+        padding: 12px 0;
+        border-radius: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 50%;
+        margin-top: 15px;
+        transition: all 0.3s;
+        height: 45px;
+    }
+
+    .btn:hover {
+        background: #7a0600;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container { 
+            right: 20px; 
+            width: 95%; 
+            height: 65vh;
+        }
+        .astronaut-container { 
+            left: 5px;
+            bottom: 65vh;
+        }
+        .astronaut {
+            width: 120px;
+        }
+        .bubbles {
+            top: -25px;
+            left: 70px;
+        }
+        .speech-bubble { 
+            left: 10px;
+            top: 20px;
+            max-width: 280px; 
+            width: 280px;
+        }
+        .speech-bubble h1 { font-size: 22px; }
+        .speech-bubble p { font-size: 16px; }
+    }
+    
+</style>
+</head>
+<body>
+<div class="page-background">
+    <video autoplay muted loop class="bg-video">
+        <source src="video/NasaVid.mp4" type="video/mp4">
+    </video>
+
+    <!-- Form -->
+    <div class="container">
+        <div class="form-container">
+            <div class="field">
+                <label for="where"><i class="fas fa-home"></i> Where do you live?</label>
+                <select id="where">
+                    <option>Please choose one</option>
+                    <option>Amman</option>
+                    <option>Zarqa</option>
+                    <option>Irbid</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="how"><i class="fas fa-bus"></i> How do you usually get around?</label>
+                <select id="how">
+                    <option>Please choose one</option>
+                    <option>Car</option>
+                    <option>Public Transport</option>
+                    <option>Walk/Bike</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="job"><i class="fas fa-person-digging"></i> What is your job?</label>
+                <select id="job">
+                    <option>Please choose one</option>
+                    <option>Student</option>
+                    <option>Office</option>
+                    <option>Outdoor</option>
+                </select>
+            </div>
+            <button class="btn">View Result</button>
+        </div>
+    </div>
+
+    <!-- Speech Bubble -->
+    <div class="speech-bubble">
+        <h1>Hi again! I'm SkyCue</h1>
+        <p>To help you best, I need to know a little
+             about your daily routine. 
+             Just a few quick questions, then I'll 
+             handle the rest.</p>
+    </div>
+</div>
+
+<!-- 🔹 البيانات (JSON) -->
+<script>
+const weatherData = {
+  "Amman": {
+    "2025-10-03": {
+      "temperature": { "min": 15, "max": 26 },
+      "rainfall": 2.5,
+      "wind": { "speed": 18, "direction": "NW" },
+      "humidity": 60
+    }
+  },
+  "Zarqa": {
+    "2025-10-03": {
+      "temperature": { "min": 17, "max": 29 },
+      "rainfall": 0,
+      "wind": { "speed": 12, "direction": "NE" },
+      "humidity": 55
+    }
+  },
+  "Irbid": {
+    "2025-10-03": {
+      "temperature": { "min": 16, "max": 27 },
+      "rainfall": 1.2,
+      "wind": { "speed": 14, "direction": "W" },
+      "humidity": 65
+    }
+  }
+};
+</script>
+
+<!-- 🔹 JavaScript -->
+<script>
+document.querySelector(".btn").addEventListener("click", function () {
+    const city = document.getElementById("where").value;
+    const transport = document.getElementById("how").value;
+    const job = document.getElementById("job").value;
+
+    if (city.includes("Please") || transport.includes("Please") || job.includes("Please")) {
+        alert("⚠️ Please fill all fields!");
+        return;
+    }
+
+    const today = "2025-10-03"; // ثابت الآن، ممكن تستبدله بتاريخ ديناميكي
+    const cityData = weatherData[city]?.[today];
+
+    if (!cityData) {
+        alert("❌ No weather data available.");
+        return;
+    }
+
+    let message = `
+🌍 City: ${city}
+📅 Date: ${today}
+🌡️ Temp: ${cityData.temperature.min}°C - ${cityData.temperature.max}°C
+💧 Rainfall: ${cityData.rainfall} mm
+💨 Wind: ${cityData.wind.speed} km/h (${cityData.wind.direction})
+💦 Humidity: ${cityData.humidity}%
+`;
+
+    if (transport === "Walk/Bike" && cityData.rainfall > 0) {
+        message += "\n🚲🌧️ Walking might be uncomfortable due to rain!";
+    }
+    if (job === "Outdoor" && cityData.wind.speed > 20) {
+        message += "\n👷💨 Strong winds today, take care outdoors!";
+    }
+
+    document.querySelector(".speech-bubble").innerHTML = `
+        <h1>Weather for ${city}</h1>
+        <p>${message.replace(/\n/g, "<br>")}</p>
+    `;
+});
+</script>
+</body>
+</html>
