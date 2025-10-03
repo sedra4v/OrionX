@@ -6,7 +6,8 @@
 <title>Rain Alerts</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-        * {
+
+ * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -227,7 +228,7 @@
         .speech-bubble h1 { font-size: 22px; }
         .speech-bubble p { font-size: 16px; }
     }
-    
+
 </style>
 </head>
 <body>
@@ -247,15 +248,7 @@
                     <option>Amman</option>
                     <option>Zarqa</option>
                     <option>Irbid</option>
-                    <option>Madaba</option>
-                    <option>Salt</option>
-                    <option>Karak</option>
-                    <option>Jerash</option>
-                    <option>Ajloun</option>
                     <option>Aqaba</option>
-                    <option>Tafilah</option>
-                    <option>Mafraq</option>
-                    <option>Ma'an</option>
                 </select>
             </div>
             <div class="field">
@@ -276,7 +269,7 @@
                     <option>Outdoor</option>
                 </select>
             </div>
-            <button class="btn">View Result</button>
+            <button class="btn" id="resultBtn">View Result</button>
         </div>
     </div>
 
@@ -299,6 +292,86 @@
              handle the rest.</p>
     </div>
 </div>
+
+<!-- JavaScript -->
+<script>
+// 🔥 هون خليت الـ JSON الكبير كله
+const weatherData = {
+  "Amman": {
+    "1-9-2025": { "Precipitation (mm/day)": 0.03 },
+    "2-9-2025": { "Precipitation (mm/day)": 0.1 },
+    "3-9-2025": { "Precipitation (mm/day)": 0.05 },
+    "4-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "5-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "6-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "7-9-2025": { "Precipitation (mm/day)": 0.01 },
+    "8-9-2025": { "Precipitation (mm/day)": 0.01 },
+    "9-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "10-9-2025": { "Precipitation (mm/day)": 0.01 },
+    "11-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "12-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "13-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "14-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "15-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "16-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "17-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "18-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "19-9-2025": { "Precipitation (mm/day)": 0.09 },
+    "20-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "21-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "22-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "23-9-2025": { "Precipitation (mm/day)": 0.0 }
+  },
+  "Irbid": {
+    "1-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "2-9-2025": { "Precipitation (mm/day)": 0.22 },
+    "3-9-2025": { "Precipitation (mm/day)": 0.04 },
+    "4-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "5-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "6-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "7-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "8-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "9-9-2025": { "Precipitation (mm/day)": 0.01 },
+    "10-9-2025": { "Precipitation (mm/day)": 0.01 }
+  },
+  "Zarqa": {
+    "1-9-2025": { "Precipitation (mm/day)": 0.03 },
+    "2-9-2025": { "Precipitation (mm/day)": 0.1 },
+    "3-9-2025": { "Precipitation (mm/day)": 0.05 },
+    "4-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "5-9-2025": { "Precipitation (mm/day)": 0.0 }
+  },
+  "Aqaba": {
+    "1-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "2-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "3-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "4-9-2025": { "Precipitation (mm/day)": 0.0 },
+    "5-9-2025": { "Precipitation (mm/day)": 0.0 }
+  }
+};
+
+// 📌 عند الضغط على الزر
+document.getElementById("resultBtn").addEventListener("click", function() {
+    const city = document.getElementById("where").value;
+
+    if (city === "Please choose one") {
+        alert("⚠️ Please select your city!");
+        return;
+    }
+
+    // نجيب أول تاريخ موجود للمدينة
+    const cityData = weatherData[city];
+    const firstDate = Object.keys(cityData)[0]; // مثلاً "1-9-2025"
+    const precipitation = cityData[firstDate]["Precipitation (mm/day)"];
+
+    // التحويل حسب المطر
+    if (precipitation > 0) {
+        window.location.href = "Rainny.html";
+    } else {
+        window.location.href = "Sunny.html";
+    }
+});
+</script>
 
 </body>
 </html>
