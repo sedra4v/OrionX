@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rain Alerts</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <style>
         * {
         margin: 0;
@@ -234,7 +235,6 @@
 <div class="page-background">
     <video autoplay muted loop class="bg-video">
         <source src="video/NasaVid.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
     </video>
 
     <!-- Form -->
@@ -247,15 +247,6 @@
                     <option>Amman</option>
                     <option>Zarqa</option>
                     <option>Irbid</option>
-                    <option>Madaba</option>
-                    <option>Salt</option>
-                    <option>Karak</option>
-                    <option>Jerash</option>
-                    <option>Ajloun</option>
-                    <option>Aqaba</option>
-                    <option>Tafilah</option>
-                    <option>Mafraq</option>
-                    <option>Ma'an</option>
                 </select>
             </div>
             <div class="field">
@@ -280,25 +271,76 @@
         </div>
     </div>
 
-    <!-- Astronaut + Bubbles -->
-    <div class="astronaut-container">
-        <img src="img/Astronaut1.png" alt="Astronaut" class="astronaut">
-        <div class="bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
-    </div>
-
     <!-- Speech Bubble -->
     <div class="speech-bubble">
         <h1>Hi again! I'm SkyCue</h1>
-        <p>To help you best, I need to know a little
-             about your daily routine. 
-             Just a few quick questions, then I'll 
-             handle the rest.</p>
+        <p>To help you best, I need to know a little about your daily routine.</p>
     </div>
 </div>
 
+<!-- بيانات الطقس -->
+<script>
+const weatherData = {
+  "Amman": {
+    "2025-10-03": { "min": 15, "max": 26, "rainfall": 2.5, "wind": 18 }
+  },
+  "Zarqa": {
+    "2025-10-03": { "min": 17, "max": 29, "rainfall": 0, "wind": 12 }
+  },
+  "Irbid": {
+    "2025-10-03": { "min": 16, "max": 27, "rainfall": 1.2, "wind": 14 }
+  }
+};
+</script>
+
+<script>
+document.querySelector(".btn").addEventListener("click", function () {
+    const city = document.getElementById("where").value;
+    const transport = document.getElementById("how").value;
+    const job = document.getElementById("job").value;
+
+    if (city.includes("Please") || transport.includes("Please") || job.includes("Please")) {
+        alert("⚠️ Please fill all fields!");
+        return;
+    }
+
+    const today = "2025-10-03";
+    const data = weatherData[city]?.[today];
+    if (!data) {
+        alert("❌ No data.");
+        return;
+    }
+
+    // الرسالة الأولى: الطقس العام
+    let summary = "";
+    if (data.max >= 25 && data.min >= 17) {
+        summary = "☀️ اليوم الجو لطيف ودافئ بالنهار، لكن قد يميل للبرودة مساءً.";
+    } else if (data.max < 20) {
+        summary = "🌥️ اليوم الجو بارد نسبياً، خصوصاً في المساء.";
+    } else {
+        summary = "🌤️ الجو معتدل طوال اليوم.";
+    }
+
+    // الرسالة الثانية: النشاط الأنسب حسب السلوك + الطقس
+    let activity = "";
+    if (transport === "Walk/Bike" && data.rainfall === 0) {
+        activity = "🚶 أنصحك بالمشي في الصباح، الهواء نقي ومنعش.";
+    } else if (job === "Outdoor" && data.wind > 20) {
+        activity = "👷 بسبب الرياح القوية، خذ احتياطاتك أثناء العمل الخارجي.";
+    } else if (job === "Office") {
+        activity = "💼 استغل فترة الظهيرة للخروج قليلاً من المكتب واستنشاق الهواء.";
+    } else if (job === "Student" && data.rainfall > 0) {
+        activity = "📚 لا تنسَ المظلة في طريقك إلى الجامعة.";
+    } else {
+        activity = "😊 استمتع بيومك، الأجواء مناسبة لأي نشاط.";
+    }
+
+    // عرض النتيجة (رسالتين فقط)
+    document.querySelector(".speech-bubble").innerHTML = `
+        <h1>Weather for ${city}</h1>
+        <p>${summary}<br><br>${activity}</p>
+    `;
+});
+</script>
 </body>
 </html>
