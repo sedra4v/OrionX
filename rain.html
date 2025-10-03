@@ -387,7 +387,7 @@
     hideBtn.addEventListener("click",()=>container.classList.add("collapsed"));
     showBtn.addEventListener("click",()=>container.classList.remove("collapsed"));
 
-<<<<<<< Updated upstream
+
     // 4) أدوات مساعدة
     const parseDate = d => new Date(d+"T00:00:00");
     function getLatestDay(arr){
@@ -412,7 +412,7 @@
         tips.push("It's quite cold. Wear warm clothes and consider layers.");
       } else {
         tips.push("The weather is moderate. Light, comfortable clothing is fine.");
-=======
+
     showBtn.addEventListener("click", () => {
       container.classList.remove("collapsed");
     });
@@ -438,7 +438,7 @@
             labels: { color: "#fff" }
           }
         }
->>>>>>> Stashed changes
+
       }
       // Humidity
       if(day.humidity_pct > 60){
@@ -591,12 +591,6 @@
       renderCards();      // اعرض كل الكروت
       selectCity("Amman"); // مدينة افتراضية
     })();
-
-
-
-
-
-
 
 
 function updateCards(city){
