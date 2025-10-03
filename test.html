@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rain Alerts</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <style>
-        * {
+         * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -234,7 +235,6 @@
 <div class="page-background">
     <video autoplay muted loop class="bg-video">
         <source src="video/NasaVid.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
     </video>
 
     <!-- Form -->
@@ -247,15 +247,6 @@
                     <option>Amman</option>
                     <option>Zarqa</option>
                     <option>Irbid</option>
-                    <option>Madaba</option>
-                    <option>Salt</option>
-                    <option>Karak</option>
-                    <option>Jerash</option>
-                    <option>Ajloun</option>
-                    <option>Aqaba</option>
-                    <option>Tafilah</option>
-                    <option>Mafraq</option>
-                    <option>Ma'an</option>
                 </select>
             </div>
             <div class="field">
@@ -280,16 +271,6 @@
         </div>
     </div>
 
-    <!-- Astronaut + Bubbles -->
-    <div class="astronaut-container">
-        <img src="img/Astronaut1.png" alt="Astronaut" class="astronaut">
-        <div class="bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
-    </div>
-
     <!-- Speech Bubble -->
     <div class="speech-bubble">
         <h1>Hi again! I'm SkyCue</h1>
@@ -300,5 +281,77 @@
     </div>
 </div>
 
+<!-- 🔹 البيانات (JSON) -->
+<script>
+const weatherData = {
+  "Amman": {
+    "2025-10-03": {
+      "temperature": { "min": 15, "max": 26 },
+      "rainfall": 2.5,
+      "wind": { "speed": 18, "direction": "NW" },
+      "humidity": 60
+    }
+  },
+  "Zarqa": {
+    "2025-10-03": {
+      "temperature": { "min": 17, "max": 29 },
+      "rainfall": 0,
+      "wind": { "speed": 12, "direction": "NE" },
+      "humidity": 55
+    }
+  },
+  "Irbid": {
+    "2025-10-03": {
+      "temperature": { "min": 16, "max": 27 },
+      "rainfall": 1.2,
+      "wind": { "speed": 14, "direction": "W" },
+      "humidity": 65
+    }
+  }
+};
+</script>
+
+<!-- 🔹 JavaScript -->
+<script>
+document.querySelector(".btn").addEventListener("click", function () {
+    const city = document.getElementById("where").value;
+    const transport = document.getElementById("how").value;
+    const job = document.getElementById("job").value;
+
+    if (city.includes("Please") || transport.includes("Please") || job.includes("Please")) {
+        alert("⚠️ Please fill all fields!");
+        return;
+    }
+
+    const today = "2025-10-03"; // ثابت الآن، ممكن تستبدله بتاريخ ديناميكي
+    const cityData = weatherData[city]?.[today];
+
+    if (!cityData) {
+        alert("❌ No weather data available.");
+        return;
+    }
+
+    let message = `
+🌍 City: ${city}
+📅 Date: ${today}
+🌡️ Temp: ${cityData.temperature.min}°C - ${cityData.temperature.max}°C
+💧 Rainfall: ${cityData.rainfall} mm
+💨 Wind: ${cityData.wind.speed} km/h (${cityData.wind.direction})
+💦 Humidity: ${cityData.humidity}%
+`;
+
+    if (transport === "Walk/Bike" && cityData.rainfall > 0) {
+        message += "\n🚲🌧️ Walking might be uncomfortable due to rain!";
+    }
+    if (job === "Outdoor" && cityData.wind.speed > 20) {
+        message += "\n👷💨 Strong winds today, take care outdoors!";
+    }
+
+    document.querySelector(".speech-bubble").innerHTML = `
+        <h1>Weather for ${city}</h1>
+        <p>${message.replace(/\n/g, "<br>")}</p>
+    `;
+});
+</script>
 </body>
 </html>
