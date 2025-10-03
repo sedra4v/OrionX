@@ -229,9 +229,8 @@
       margin-left: 16px;
     }
     .skycue{
-      width:80%;
-      height: 15vh;
-        margin: 20px;
+      width:100%;
+        margin: 10px;
         color: #000;
         text-align: center;
     }
@@ -242,17 +241,17 @@
       gap:10px;
       justify-content: center;
       align-items: center;
-      margin: 20px;
+     
 
     }
     .card1{
        text-align: center;
-       height: 200px;
+       height: 100px;
        width: 60%;
-       background-color: rgb(228, 225, 218);
+       background-color: rgba(228, 225, 218, 0.269);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(226, 221, 221, 0.226);
       border-radius: 12px;
       transition: .25s ease;
       cursor: pointer;
@@ -600,15 +599,6 @@ document.getElementById("humidityAlert").textContent =
   latest.humidity_pct > 60 ? "High humidity" : 
   (latest.humidity_pct < 25 ? "Dry air" : "Normal");
 }
-
-
-
-
-
-
-
-
-
 
   </script>
 </body>
