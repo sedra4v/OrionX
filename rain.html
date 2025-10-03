@@ -387,6 +387,7 @@
     hideBtn.addEventListener("click",()=>container.classList.add("collapsed"));
     showBtn.addEventListener("click",()=>container.classList.remove("collapsed"));
 
+<<<<<<< Updated upstream
     // 4) أدوات مساعدة
     const parseDate = d => new Date(d+"T00:00:00");
     function getLatestDay(arr){
@@ -411,6 +412,33 @@
         tips.push("It's quite cold. Wear warm clothes and consider layers.");
       } else {
         tips.push("The weather is moderate. Light, comfortable clothing is fine.");
+=======
+    showBtn.addEventListener("click", () => {
+      container.classList.remove("collapsed");
+    });
+
+    // Doughnut Chart
+    const ctxDoughnut = document.getElementById("doughnutChart").getContext("2d");
+    new Chart(ctxDoughnut, {
+      type: "doughnut",
+      data: {
+        labels: ["Sunny", "Cloudy", "Rainy"],
+        datasets: [{
+          data: [40, 35, 25],
+          backgroundColor: ["#FFD700", "#36A2EB", "#4BC0C0"],
+          borderColor: ["#fff","#fff","#fff"],
+          borderWidth: 2
+        }]
+      },
+      
+      options: {
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { color: "#fff" }
+          }
+        }
+>>>>>>> Stashed changes
       }
       // Humidity
       if(day.humidity_pct > 60){
