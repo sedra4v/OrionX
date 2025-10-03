@@ -271,10 +271,21 @@
 </head>
 <body>
   <div class="page-background">
-    <video autoplay muted loop class="bg-video">
-      <source src="video/NasaVid.mp4" type="video/mp4"/>
+    <!-- <video autoplay muted loop class="bg-video">
+      <source src="video/RainVid.mp4" type="video/mp4"/>
       Your browser does not support HTML5 video.
-    </video>
+    </video> -->
+    <!-- <video autoplay muted loop class="bg-video" id="bgVideo">
+  <source src="video/SunVid.mp4" type="video/mp4"/>
+</video> -->
+
+
+
+<video autoplay muted loop class="bg-video" id="bgVideo">
+  <source src="video/SunVid.mp4" type="video/mp4"/>
+</video>
+
+
 
     <div class="container" id="mainContainer">
       <div class="navbar">
@@ -558,6 +569,9 @@
       renderCharts(city);
       updateSummaryAndTips(city);
       updateCards(city);
+
+        const latest = getLatestDay(weatherData[city]);
+  updateBackgroundVideo(latest); 
     }
 
     // 10) تهيئة أولية
@@ -599,6 +613,35 @@ document.getElementById("humidityAlert").textContent =
   latest.humidity_pct > 60 ? "High humidity" : 
   (latest.humidity_pct < 25 ? "Dry air" : "Normal");
 }
+
+
+
+
+
+
+
+function updateBackgroundVideo(latest) {
+  const bgVideo = document.getElementById("bgVideo");   // هنا نجيب الفيديو بالـ id
+  const source = bgVideo.querySelector("source");       // نجيب العنصر <source>
+
+  if (latest.precip_mm_day > 0) {
+    // إذا في مطر
+    source.src = "video/RainVid.mp4";
+  } else {
+    // إذا مشمس
+    source.src = "video/RainVid.mp4";
+  }
+
+  bgVideo.load();  // إعادة تحميل الفيديو الجديد
+  bgVideo.play();  // تشغيله مباشرة
+}
+
+
+
+
+
+
+
 
   </script>
 </body>
