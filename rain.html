@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rain</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    /* === Reset === */
     * {
       margin: 0;
       padding: 0;
@@ -17,12 +18,12 @@
       color: #fff;
     }
 
+    /* === Background === */
     .page-background {
       position: relative;
       width: 100%;
       height: 100vh;
     }
-
     .bg-video {
       position: fixed;
       top: 0;
@@ -33,53 +34,39 @@
       z-index: -1;
     }
 
+    /* === Layout === */
     .container {
       display: flex;
       justify-content: space-between;
       align-items: stretch;
       height: 100vh;
+      padding: 16px;
+      gap: 16px;
     }
 
-    .number {
-      font-size: 35px;
-      font-weight: 600;
-      width: 30%;
-    }
+    /* === Navbar === */
     .navbar {
-      background: rgba(135, 132, 132, 0.2);
+      background: rgba(135,132,132,0.2);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255,255,255,0.3);
       border-radius: 12px;
-      padding: 10px 20px;
-      width: 20%;
-      transition: all 0.4s ease;
+      padding: 12px;
+      width: 24%;
+      min-width: 250px;
+      transition: all .4s ease;
       overflow: auto;
     }
-
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
-      position: relative;
-    }
-
-    /* لما يكون الـ navbar مخفي */
     .collapsed .navbar {
       width: 0;
+      min-width: 0;
       padding: 0;
       border: none;
     }
-
     .collapsed .content {
       width: 100%;
     }
 
-    /* زر إظهار الناف */
     #showNavBtn {
       display: none;
       position: fixed;
@@ -89,115 +76,163 @@
       cursor: pointer;
       border-radius: 8px;
       border: none;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,.2);
       backdrop-filter: blur(5px);
       color: #fff;
       z-index: 10;
     }
-
     .collapsed #showNavBtn {
       display: block;
     }
 
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
     button {
       padding: 8px 12px;
       margin-bottom: 10px;
       cursor: pointer;
       border-radius: 8px;
       border: none;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,.2);
       backdrop-filter: blur(5px);
       color: #fff;
     }
 
     .search {
-      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      width: 100%;
     }
-
     #search {
-      width: 76%;
-      height: 10px;
-      background: white;
+      flex: 1;
+      height: 38px;
+      background: #fff;
       border-radius: 30px;
-      padding: 14px;
-      border-style: none;
+      padding: 0 14px;
+      border: none;
+      color: #000;
     }
 
-    .title {
-      padding-top: 2px;
-      font-style: oblique;
-      width: 60%;
-      padding: 10px 28px;
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .title h2 {
-      padding: 2px 2px;
-    }
-
-    .cont {
-      height: 100vh;
-    }
-
+    /* === City Card === */
     .daywealther {
-      background-color: rgba(216, 226, 235, 0.8);
+      background-color: rgba(216,226,235,0.8);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255,255,255,0.3);
       border-radius: 12px;
-      padding: 10px 20px;
-      width: 94%;
-      margin-top: 10px;
-      transition: all 0.4s ease;
-      overflow: hidden;
+      padding: 12px 16px;
+      width: 100%;
+      transition: .25s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: #000;
+      cursor: pointer;
+    }
+    .daywealther:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
+    }
+    .title {
+      width: 70%;
+    }
+    .title h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    .title p {
+      font-size: 13px;
+      opacity: .85;
+    }
+    .number {
+      font-size: 28px;
+      font-weight: 700;
     }
 
-    /* لوحة الطقس */
+    /* === Content Area === */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .city-badge {
+      font-weight: 600;
+      font-size: 18px;
+      opacity: .95;
+    }
+    .summary {
+      opacity: .9;
+    }
+
+    /* === Stats Box === */
     .weather-stats {
       flex: 2;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,.4);
       border-radius: 12px;
       padding: 20px;
       backdrop-filter: blur(8px);
     }
-
     .weather-stats h2 {
       margin-bottom: 10px;
       text-align: center;
     }
-
     .charts {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
-
     .chart-box {
       flex: 1;
       min-width: 300px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,.1);
       padding: 20px;
       border-radius: 12px;
       backdrop-filter: blur(8px);
     }
 
-    /* مساحة فارغة */
+    /* === Tips Box === */
     .side-box {
       flex: 1;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,.05);
       border-radius: 12px;
       backdrop-filter: blur(8px);
       padding: 20px;
+    }
+    .tips-list {
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .tips-list li {
+      margin-left: 16px;
     }
   </style>
 </head>
 <body>
   <div class="page-background">
     <video autoplay muted loop class="bg-video">
-      <source src="video/NasaVid.mp4" type="video/mp4" />
+      <source src="video/NasaVid.mp4" type="video/mp4"/>
       Your browser does not support HTML5 video.
     </video>
 
@@ -206,23 +241,23 @@
         <div class="header">
           <button id="hideNavBtn">Hide Nav</button>
           <h1>Weather</h1>
-          <div class="search">
-            <input type="text" id="search" placeholder="search">
-          </div>
         </div>
-        <!-- هون يكرر -->
-        <div class="daywealther">
-          <div class="title">
-            <h2>Country name</h2>
-            <p>my location</p>
-            <p>Lorem, pariatur tempora praesentium explicabo ipsum, commodi aut officia</p>
-          </div>
-          <div class="number">26°C</div>
+        <div class="search">
+          <input type="text" id="search" placeholder="Search city (e.g., Amman, Zarqa, Irbid, Aqaba)"/>
+          <button id="searchBtn">Go</button>
         </div>
+
+        <!-- Cards container -->
+        <div class="cards" id="cardsContainer"></div>
       </div>
 
       <div class="content">
         <button id="showNavBtn">Show Nav</button>
+
+        <div class="topbar">
+          <div class="city-badge" id="cityBadge">Select a city</div>
+          <div class="summary" id="citySummary">Choose a city from the left or search by name.</div>
+        </div>
 
         <div class="weather-stats">
           <h2>Weather Statistics</h2>
@@ -236,77 +271,247 @@
           </div>
         </div>
 
-        <div class="side-box">
-          <h3>Extra Box</h3>
-          <p>ممكن تستخدم هاي المساحة لأي إضافة لاحقًا</p>
+        <div class="side-box" id="tipsBox">
+          <h3>Traveler Tips</h3>
+          <p>Tips will appear here after you pick a city.</p>
+          <ul class="tips-list" id="tipsList"></ul>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    // 1) بيانات المدن
+    const weatherData = {
+      "Amman": [
+        {"date":"2025-09-17","precip_mm_day":0.01,"humidity_pct":55.0,"wind_speed_ms":3.2,"temp_day_max_c":32.2,"temp_night_min_c":16.7},
+        {"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":57.5,"wind_speed_ms":3.9,"temp_day_max_c":32.6,"temp_night_min_c":16.0},
+        {"date":"2025-09-19","precip_mm_day":0.09,"humidity_pct":59.1,"wind_speed_ms":4.0,"temp_day_max_c":31.2,"temp_night_min_c":19.6},
+        {"date":"2025-09-20","precip_mm_day":0.0,"humidity_pct":39.5,"wind_speed_ms":2.2,"temp_day_max_c":32.6,"temp_night_min_c":16.8},
+        {"date":"2025-09-21","precip_mm_day":0.0,"humidity_pct":23.2,"wind_speed_ms":2.6,"temp_day_max_c":34.0,"temp_night_min_c":17.6},
+        {"date":"2025-09-22","precip_mm_day":0.0,"humidity_pct":22.4,"wind_speed_ms":3.0,"temp_day_max_c":34.3,"temp_night_min_c":18.6},
+        {"date":"2025-09-23","precip_mm_day":0.0,"humidity_pct":19.7,"wind_speed_ms":2.6,"temp_day_max_c":35.1,"temp_night_min_c":18.7}
+      ],
+      "Zarqa": [
+        {"date":"2025-09-17","precip_mm_day":0.0,"humidity_pct":57.9,"wind_speed_ms":3.6,"temp_day_max_c":33.3,"temp_night_min_c":18.3},
+        {"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":57.5,"wind_speed_ms":3.95,"temp_day_max_c":32.63,"temp_night_min_c":16.03},
+        {"date":"2025-09-19","precip_mm_day":0.09,"humidity_pct":59.1,"wind_speed_ms":4.0,"temp_day_max_c":31.21,"temp_night_min_c":19.61},
+        {"date":"2025-09-20","precip_mm_day":0.0,"humidity_pct":39.48,"wind_speed_ms":2.21,"temp_day_max_c":32.64,"temp_night_min_c":16.78},
+        {"date":"2025-09-21","precip_mm_day":0.0,"humidity_pct":23.21,"wind_speed_ms":2.61,"temp_day_max_c":33.96,"temp_night_min_c":17.58},
+        {"date":"2025-09-22","precip_mm_day":0.0,"humidity_pct":22.42,"wind_speed_ms":3.01,"temp_day_max_c":34.33,"temp_night_min_c":18.64},
+        {"date":"2025-09-23","precip_mm_day":0.0,"humidity_pct":19.65,"wind_speed_ms":2.61,"temp_day_max_c":35.07,"temp_night_min_c":18.68}
+      ],
+      "Irbid": [
+        {"date":"2025-09-17","precip_mm_day":0.0,"humidity_pct":60.64,"wind_speed_ms":2.49,"temp_day_max_c":36.04,"temp_night_min_c":21.78},
+        {"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":62.01,"wind_speed_ms":2.81,"temp_day_max_c":35.0,"temp_night_min_c":19.84},
+        {"date":"2025-09-19","precip_mm_day":0.04,"humidity_pct":58.43,"wind_speed_ms":2.69,"temp_day_max_c":34.72,"temp_night_min_c":22.18},
+        {"date":"2025-09-20","precip_mm_day":0.0,"humidity_pct":41.48,"wind_speed_ms":2.09,"temp_day_max_c":36.11,"temp_night_min_c":19.73},
+        {"date":"2025-09-21","precip_mm_day":0.0,"humidity_pct":29.91,"wind_speed_ms":2.18,"temp_day_max_c":38.16,"temp_night_min_c":19.84},
+        {"date":"2025-09-22","precip_mm_day":0.0,"humidity_pct":31.73,"wind_speed_ms":2.48,"temp_day_max_c":38.33,"temp_night_min_c":20.84},
+        {"date":"2025-09-23","precip_mm_day":0.0,"humidity_pct":37.82,"wind_speed_ms":2.33,"temp_day_max_c":38.31,"temp_night_min_c":21.06}
+      ],
+      "Aqaba": [
+        {"date":"2025-09-17","precip_mm_day":0.0,"humidity_pct":44.79,"wind_speed_ms":2.45,"temp_day_max_c":33.25,"temp_night_min_c":19.91},
+        {"date":"2025-09-18","precip_mm_day":0.0,"humidity_pct":35.8,"wind_speed_ms":2.27,"temp_day_max_c":34.22,"temp_night_min_c":21.32},
+        {"date":"2025-09-19","precip_mm_day":0.0,"humidity_pct":45.45,"wind_speed_ms":2.9,"temp_day_max_c":32.64,"temp_night_min_c":20.1},
+        {"date":"2025-09-20","precip_mm_day":0.0,"humidity_pct":46.83,"wind_speed_ms":2.99,"temp_day_max_c":33.82,"temp_night_min_c":18.99},
+        {"date":"2025-09-21","precip_mm_day":0.0,"humidity_pct":49.08,"wind_speed_ms":2.79,"temp_day_max_c":32.86,"temp_night_min_c":18.41},
+        {"date":"2025-09-22","precip_mm_day":0.0,"humidity_pct":49.0,"wind_speed_ms":2.33,"temp_day_max_c":33.41,"temp_night_min_c":18.66},
+        {"date":"2025-09-23","precip_mm_day":0.0,"humidity_pct":47.15,"wind_speed_ms":2.12,"temp_day_max_c":33.91,"temp_night_min_c":19.51}
+      ]
+    };
+
+    // 2) عناصر DOM
     const container = document.getElementById("mainContainer");
     const hideBtn = document.getElementById("hideNavBtn");
     const showBtn = document.getElementById("showNavBtn");
+    const cardsContainer = document.getElementById("cardsContainer");
+    const searchInput = document.getElementById("search");
+    const searchBtn = document.getElementById("searchBtn");
+    const cityBadge = document.getElementById("cityBadge");
+    const citySummary = document.getElementById("citySummary");
+    const tipsList = document.getElementById("tipsList");
+    const tipsBox = document.getElementById("tipsBox");
 
-    hideBtn.addEventListener("click", () => {
-      container.classList.add("collapsed");
-    });
+    // 3) إظهار/إخفاء الـ Navbar
+    hideBtn.addEventListener("click",()=>container.classList.add("collapsed"));
+    showBtn.addEventListener("click",()=>container.classList.remove("collapsed"));
 
-    showBtn.addEventListener("click", () => {
-      container.classList.remove("collapsed");
-    });
-
-    // Doughnut Chart
-    const ctxDoughnut = document.getElementById("doughnutChart").getContext("2d");
-    new Chart(ctxDoughnut, {
-      type: "doughnut",
-      data: {
-        labels: ["Sunny", "Cloudy", "Rainy"],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ["#FFD700", "#36A2EB", "#4BC0C0"],
-          borderColor: ["#fff","#fff","#fff"],
-          borderWidth: 2
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { color: "#fff" }
-          }
-        }
+    // 4) أدوات مساعدة
+    const parseDate = d => new Date(d+"T00:00:00");
+    function getLatestDay(arr){
+      return arr.reduce((a,b)=> parseDate(a.date)>parseDate(b.date)?a:b);
+    }
+    function computeSeries(city){
+      const entries = weatherData[city] || [];
+      const labels = entries.map(e=>e.date);
+      const temps  = entries.map(e=>e.temp_day_max_c);
+      const wetDays = entries.filter(e=>e.precip_mm_day>0).length;
+      const dryDays = entries.length - wetDays;
+      const avgHum  = entries.reduce((s,e)=>s+e.humidity_pct,0)/(entries.length||1);
+      const avgWind = entries.reduce((s,e)=>s+e.wind_speed_ms,0)/(entries.length||1);
+      return {labels, temps, wetDays, dryDays, avgHum, avgWind, entries};
+    }
+    function buildTipsFromDay(day){
+      const tips = [];
+      // Temperature
+      if(day.temp_day_max_c > 32){
+        tips.push("It's very hot today. Wear light clothes and drink enough water.");
+      } else if(day.temp_day_max_c < 20){
+        tips.push("It's quite cold. Wear warm clothes and consider layers.");
+      } else {
+        tips.push("The weather is moderate. Light, comfortable clothing is fine.");
       }
-    });
+      // Humidity
+      if(day.humidity_pct > 60){
+        tips.push("Humidity is high. Prefer breathable fabrics and stay in shaded/cool areas.");
+      } else if(day.humidity_pct < 25){
+        tips.push("Air is dry. Use moisturizer and stay hydrated.");
+      } else {
+        tips.push("Humidity levels are comfortable for most activities.");
+      }
+      // Wind
+      if(day.wind_speed_ms > 5){
+        tips.push("Winds are strong. Secure hats and be cautious near open areas.");
+      } else {
+        tips.push("Winds are calm to moderate—great for outdoor plans.");
+      }
+      // Rain
+      if(day.precip_mm_day > 0){
+        tips.push("Rain is expected. Carry an umbrella or a light rain jacket.");
+      } else {
+        tips.push("No rain expected today.");
+      }
+      return tips;
+    }
 
-    // Line Chart
-    const ctxLine = document.getElementById("lineChart").getContext("2d");
-    new Chart(ctxLine, {
-      type: "line",
-      data: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        datasets: [{
-          label: "Temperature (°C)",
-          data: [22, 24, 21, 25, 28, 30, 27],
-          borderColor: "#FF6384",
-          backgroundColor: "rgba(255,99,132,0.2)",
-          fill: true,
-          tension: 0.4
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            labels: { color: "#fff" }
-          }
+    // 5) بناء الكروت ديناميكيًا
+    function renderCards(filterText=""){
+      cardsContainer.innerHTML = "";
+      const cities = Object.keys(weatherData);
+      const q = filterText.trim().toLowerCase();
+      cities
+        .filter(c=>c.toLowerCase().includes(q))
+        .forEach(city=>{
+          const latest = getLatestDay(weatherData[city]);
+          const card = document.createElement("div");
+          card.className = "daywealther";
+          card.innerHTML = `
+            <div class="title">
+              <h2>${city}</h2>
+              <p>Last day: ${latest.date}</p>
+              <p>Hum: ${latest.humidity_pct.toFixed(0)}% · Wind: ${latest.wind_speed_ms.toFixed(1)} m/s · Rain: ${latest.precip_mm_day.toFixed(2)} mm</p>
+            </div>
+            <div class="number">${latest.temp_day_max_c.toFixed(1)}°C</div>
+          `;
+          card.addEventListener("click",()=>selectCity(city));
+          cardsContainer.appendChild(card);
+        });
+      if(cardsContainer.children.length===0){
+        const empty = document.createElement("div");
+        empty.style.opacity = "0.9";
+        empty.textContent = "No results. Try another city name.";
+        cardsContainer.appendChild(empty);
+      }
+    }
+
+    // 6) البحث
+    function doSearch(){
+      const q = searchInput.value;
+      // فلترة الكروت
+      renderCards(q);
+      // إذا في مدينة مطابقة بالكامل، افتحها
+      const cities = Object.keys(weatherData);
+      const exact = cities.find(c => c.toLowerCase() === q.trim().toLowerCase());
+      if(exact){ selectCity(exact); }
+    }
+    searchBtn.addEventListener("click", doSearch);
+    searchInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") doSearch(); });
+    searchInput.addEventListener("input", ()=>renderCards(searchInput.value));
+
+    // 7) الرسوم البيانية (نحتفظ بمراجع لتحديثها/تدميرها)
+    let doughnutChartRef = null;
+    let lineChartRef = null;
+
+    function renderCharts(city){
+      const {labels, temps, wetDays, dryDays} = computeSeries(city);
+      // Destroy if exist
+      if(doughnutChartRef){ doughnutChartRef.destroy(); }
+      if(lineChartRef){ lineChartRef.destroy(); }
+
+      // Doughnut: Wet vs Dry
+      const ctxD = document.getElementById("doughnutChart").getContext("2d");
+      doughnutChartRef = new Chart(ctxD,{
+        type:"doughnut",
+        data:{
+          labels:["Dry days","Rainy days"],
+          datasets:[{
+            data:[dryDays, wetDays],
+            backgroundColor:["#36A2EB","#4BC0C0"],
+            borderColor:["#fff","#fff"],
+            borderWidth:2
+          }]
         },
-        scales: {
-          x: { ticks: { color: "#fff" } },
-          y: { ticks: { color: "#fff" } }
+        options:{
+          plugins:{ legend:{ position:"bottom", labels:{ color:"#fff"} } }
         }
-      }
-    });
+      });
+
+      // Line: Max temp per day
+      const ctxL = document.getElementById("lineChart").getContext("2d");
+      lineChartRef = new Chart(ctxL,{
+        type:"line",
+        data:{
+          labels,
+          datasets:[{
+            label:`Max Temp (°C) — ${city}`,
+            data:temps,
+            borderColor:"#FF6384",
+            backgroundColor:"rgba(255,99,132,0.2)",
+            fill:true,
+            tension:0.35
+          }]
+        },
+        options:{
+          plugins:{ legend:{ labels:{ color:"#fff"} } },
+          scales:{
+            x:{ ticks:{ color:"#fff"} },
+            y:{ ticks:{ color:"#fff"} }
+          }
+        }
+      });
+    }
+
+    // 8) تحديث الملخص والنصائح
+    function updateSummaryAndTips(city){
+      const {avgHum, avgWind, entries} = computeSeries(city);
+      const latest = getLatestDay(entries);
+      cityBadge.textContent = city;
+      citySummary.textContent =
+        `Latest: ${latest.date} • Max ${latest.temp_day_max_c.toFixed(1)}°C • Hum ${latest.humidity_pct.toFixed(0)}% • Wind ${latest.wind_speed_ms.toFixed(1)} m/s`;
+
+      const tips = buildTipsFromDay(latest);
+      tipsList.innerHTML = "";
+      tipsBox.querySelector("p")?.remove();
+      tips.forEach(t=>{
+        const li = document.createElement("li");
+        li.textContent = t;
+        tipsList.appendChild(li);
+      });
+    }
+
+    // 9) اختيار مدينة
+    function selectCity(city){
+      if(!weatherData[city]) return;
+      renderCharts(city);
+      updateSummaryAndTips(city);
+    }
+
+    // 10) تهيئة أولية
+    (function init(){
+      renderCards();      // اعرض كل الكروت
+      selectCity("Amman"); // مدينة افتراضية
+    })();
   </script>
 </body>
 </html>
