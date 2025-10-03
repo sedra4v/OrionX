@@ -227,6 +227,46 @@
     .tips-list li {
       margin-left: 16px;
     }
+    .skycue{
+      width:80%;
+      height: 15vh;
+        margin: 20px;
+        color: #000;
+        text-align: center;
+    }
+
+    .cardss{
+      display: flex;
+      justify-content: space-between;
+      gap:10px;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+
+    }
+    .card1{
+       text-align: center;
+       height: 200px;
+       width: 60%;
+       background-color: rgb(228, 225, 218);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      transition: .25s ease;
+      cursor: pointer;
+       
+    }
+    .card1 span {
+  font-size:14px;
+  margin-top:6px;
+  color:#333;
+}
+
+    .skycue img{
+      width:200px;
+      height: 250px;
+    }
   </style>
 </head>
 <body>
@@ -267,6 +307,16 @@
             </div>
             <div class="chart-box">
               <canvas id="lineChart"></canvas>
+               <div class="skycue">
+               
+<div class="cardss">
+  <div class="card1"><div id="dayTemp"></div><span id="dayAlert"></span></div>
+  <div class="card1"><div id="nightTemp"></div><span id="nightAlert"></span></div>
+  <div class="card1"><div id="windSpeed"></div><span id="windAlert"></span></div>
+  <div class="card1"><div id="humidity"></div><span id="humidityAlert"></span></div>
+</div>
+            </div>
+           
             </div>
           </div>
         </div>
@@ -505,6 +555,7 @@
       if(!weatherData[city]) return;
       renderCharts(city);
       updateSummaryAndTips(city);
+      updateCards(city);
     }
 
     // 10) تهيئة أولية
@@ -512,6 +563,49 @@
       renderCards();      // اعرض كل الكروت
       selectCity("Amman"); // مدينة افتراضية
     })();
+
+
+
+
+
+
+
+
+function updateCards(city){
+  const latest = getLatestDay(weatherData[city]);
+  if(!latest) return;
+
+  // القيم
+  document.getElementById("dayTemp").textContent = `Day: ${latest.temp_day_max_c}°C`;
+  document.getElementById("nightTemp").textContent = `Night: ${latest.temp_night_min_c}°C`;
+  document.getElementById("windSpeed").textContent = `Wind: ${latest.wind_speed_ms} m/s`;
+  document.getElementById("humidity").textContent = `Humidity: ${latest.humidity_pct}%`;
+
+  // التنبيهات
+document.getElementById("dayAlert").textContent = 
+  latest.temp_day_max_c > 32 ? "High temperature" : 
+  (latest.temp_day_max_c < 15 ? "Cold" : "Normal");
+
+document.getElementById("nightAlert").textContent = 
+  latest.temp_night_min_c < 15 ? "Cold at night" : "Normal";
+
+document.getElementById("windAlert").textContent = 
+  latest.wind_speed_ms > 5 ? "Strong wind" : "Normal";
+
+document.getElementById("humidityAlert").textContent = 
+  latest.humidity_pct > 60 ? "High humidity" : 
+  (latest.humidity_pct < 25 ? "Dry air" : "Normal");
+}
+
+
+
+
+
+
+
+
+
+
   </script>
 </body>
 </html>
