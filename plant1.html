@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your Perfect Spot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background:linear-gradient(90deg,#1e222c,#17171d,#202020);
+      color: #fff;
+    }
+
+    .left {
+      flex: 1;
+      background: url('img/image\ 4\ \(1\).png') no-repeat center;
+      background-size: cover;
+      height:auto ;
+    }
+
+    .right {
+      flex: 1;
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 48px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      background-color: #253b1d;
+      padding: 0 10px;
+      border-radius: 4px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 40px;
+      color: #ccc;
+    }
+
+    label {
+      
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    select {
+        margin-right: 20%;
+        text-align: center;
+      width: 50%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #253b1d;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    select option {
+      background-color: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="left"></div>
+  <div class="right">
+    <h1>Find Your <strong style="color: #aaca9e;">Perfect Spot</strong> to <span>Grow</span></h1>
+    <p>Pick a city to see rainfall insights and your chances of successful planting</p>
+    <label for="country">Select the country :</label>
+  <select id="governorate">
+  <option value="">Choose a governorate</option>
+  <option value="Amman">Amman</option>
+  <option value="Zarqa">Zarqa</option>
+  <option value="Irbid">Irbid</option>
+  <option value="Mafraq">Mafraq</option>
+  <option value="Jerash">Jerash</option>
+  <option value="Ajloun">Ajloun</option>
+  <option value="Madaba">Madaba</option>
+  <option value="Karak">Karak</option>
+  <option value="Tafilah">Tafilah</option>
+  <option value="Maan">Maan</option>
+  <option value="Aqaba">Aqaba</option>
+  <option value="Balqa">Balqa</option>
+</select>
+  </div>
+</body>
+</html>
