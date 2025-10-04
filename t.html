@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+ 
+  <style>
+    :root{
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.08);
+      --accent: rgba(255,255,255,0.9);
+      --muted: rgba(255,255,255,0.6);
+      --card-radius: 18px;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+        position: fixed;
+      background: linear-gradient(180deg,#30383a 0%, #5a6e6c 55% );
+      display:flex;align-items:center;justify-content:center;
+      padding:40px; color:var(--accent);
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100vh;
+      -webkit-font-smoothing:antialiased;
+      background-image: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent 5%), url('/img/bgp.jpg');
+      background-size: cover;
+    }
+
+    /* central mock tablet */
+    .screen{
+      width:100%; max-width:100%; height:520px; border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      position:relative; overflow:hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* background scene inside screen */
+    .scene{
+      position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit=crop&w=1400&q=60') center/cover no-repeat;
+      filter: contrast(1.05) saturate(0.8) brightness(0.9);
+    }
+    .scene::after{
+      content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(17,28,33,0.45), rgba(0,0,0,0.35));
+    }
+
+    /* content card */
+    .card{
+      position:absolute; inset:24px; border-radius:16px; overflow:hidden; display:flex;
+      backdrop-filter: blur(8px) saturate(1.1);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* left sidebar */
+    .sidebar{
+      width:72px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex; flex-direction:column; gap:16px; align-items:center; padding:18px 10px;
+      border-right:1px solid rgba(255,255,255,0.02);
+    }
+    .logo{width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.06); display:flex;align-items:center;justify-content:center; font-weight:700}
+    .btn{
+      width:44px; height:44px; border-radius:10px; background:transparent; display:grid; place-items:center; cursor:pointer; border:1px solid transparent; transition:all .22s;
+    }
+    .btn:hover{transform:translateX(-4px)}
+    .btn.active{background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.06);}
+    .btn svg{width:20px;height:20px; opacity:0.95}
+
+    /* main content */
+    .main{
+      flex:1; padding:34px; display:flex; gap:20px; align-items:stretch; position:relative;
+    }
+
+    .leftArea{flex:1; display:flex; flex-direction:column; gap:14px}
+    .welcome{display:flex; gap:12px; align-items:center}
+    .user{font-size:14px; color:var(--muted)}
+    h1{margin:0; font-size:40px; letter-spacing:-1px}
+    p.lead{color:var(--muted); margin:6px 0 0; max-width:60%}
+
+    /* bottom small forecast strip */
+    .forecastStrip{
+      margin-top:auto; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; display:flex; gap:16px; align-items:center; backdrop-filter: blur(6px);
+    }
+    .day{min-width:64px; text-align:center}
+    .day .num{font-weight:700}
+    .wave{height:48px; flex:1; position:relative}
+    .wave svg{position:absolute; left:0; right:0; top:8px}
+
+    /* right column */
+    .rightCol{width:260px; display:flex; flex-direction:column; gap:14px}
+    .tempCard{background:rgba(255,255,255,0.06); border-radius:12px; padding:16px; min-height:84px; display:flex; flex-direction:column; gap:6px; justify-content:center; border:1px solid rgba(255,255,255,0.03)}
+    .tempCard .city{font-size:13px; color:var(--muted)}
+    .tempCard .temp{font-size:28px; font-weight:700}
+
+
+/* small round controls top-right */
+    .topControls{position:absolute; right:26px; top:18px; display:flex; gap:10px}
+    .control{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.03);display:grid;place-items:center}
+
+    /* Responsive tweaks */
+    @media (max-width:900px){
+      .screen{height:560px}
+      h1{font-size:30px}
+      .rightCol{display:none}
+    }
+
+    /* small helper styles */
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="screen" role="application">
+    <div class="scene" aria-hidden="true"></div>
+    <div class="card" id="card">
+      <nav class="sidebar" aria-label="القائمة الجانبية">
+        <div class="logo">W</div>
+        <button class="btn active" data-city="central" title="Central Jakarta"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="btn" data-city="north" title="North Jakarta"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="btn" data-city="bandung" title="Bandung"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="white" stroke-width="1.2"/></svg></button>
+        <button class="btn" data-city="south" title="South Jakarta"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <div style="flex:1"></div>
+        <button class="btn" id="settings" title="Settings"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" stroke="white" stroke-width="1"/></svg></button>
+      </nav>
+
+      <section class="main">
+        <div class="leftArea">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="user muted">Welcome — Calfin Danang</div>
+              <h1 id="headline">Storm with Heavy Rain</h1>
+              <p class="lead" id="lead">Partly cloudy with occasional snow showers. High around 50°F. Wind from the east 11 to 21 mph. Snow chance is 40%, with rainfall expected to be less than an inch.</p>
+            </div>
+            <div class="topControls" aria-hidden="true">
+              <div class="control">+</div>
+              <div class="control">☼</div>
+              <div class="control">⚙</div>
+            </div>
+          </div>
+
+          <div class="forecastStrip" role="list">
+            <div class="day"><div class="num">11°</div><div class="muted">Sun</div></div>
+            <div class="day"><div class="num">13°</div><div class="muted">Mon</div></div>
+            <div class="day"><div class="num">14°</div><div class="muted">Tue</div></div>
+            <div class="day"><div class="num">10°</div><div class="muted">Wed</div></div>
+            <div class="day"><div class="num">19°</div><div class="muted">Thu</div></div>
+            <div class="wave" aria-hidden="true">
+              <!-- simple svg wave -->
+              <svg viewBox="0 0 600 60" preserveAspectRatio="none" width="100%" height="60">
+                <path d="M0 40 C100 0 200 80 300 40 C400 0 500 80 600 40 L600 60 L0 60 Z" fill="rgba(255,255,255,0.08)"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="rightCol" aria-label="معلومات المدن">
+          <div class="tempCard" id="card-main-temp">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div class="city muted" id="main-city">Central Jakarta</div>
+                <div class="temp" id="main-temp">10°C</div>
+              </div>
+              <div style="text-align:center">
+                <div class="muted">Wind</div>
+                <div class="muted">15 km/h</div>
+              </div>
+            </div>
+          </div>
+
+  
+<div class="tempCard" id="card-1">
+            <div class="city" id="c1-city">North Jakarta</div>
+            <div class="temp" id="c1-temp">12°C</div>
+            <div class="muted">Mostly Sunny</div>
+          </div>
+
+          <div class="tempCard" id="card-2">
+            <div class="city" id="c2-city">Bandung</div>
+            <div class="temp" id="c2-temp">10°C</div>
+            <div class="muted">Cloudy</div>
+          </div>
+
+          <div class="tempCard" id="card-3">
+            <div class="city" id="c3-city">South Jakarta</div>
+            <div class="temp" id="c3-temp">14°C</div>
+            <div class="muted">Sunny</div>
+          </div>
+        </aside>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- section2 for Statistics plants  -->
+<section class="statistice"></section>
+
+
+  <script>
+    // بيانات افتراضية للمدن
+    const data = {
+      central:{city:'Central Jakarta', temp:'10°C', lead:'Heavy storms with strong winds and heavy rain expected tonight. Take precautions.'},
+      north:{city:'North Jakarta', temp:'12°C', lead:'Mostly sunny with light breeze and low clouds in the morning.'},
+      bandung:{city:'Bandung', temp:'10°C', lead:'Cloudy and cool. Chance of drizzle in the evening.'},
+      south:{city:'South Jakarta', temp:'14°C', lead:'Clear and sunny day with warm afternoon temperatures.'}
+    }
+
+    // ربط الأزرار
+    const buttons = document.querySelectorAll('.sidebar .btn[data-city]');
+    buttons.forEach(btn=> btn.addEventListener('click', ()=>{
+      // تفعيل الشكل
+      document.querySelectorAll('.sidebar .btn').forEach(b=> b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const key = btn.dataset.city;
+      const d = data[key];
+      if(!d) return;
+
+      // تحديث النصوص
+      document.getElementById('main-city').textContent = d.city;
+      document.getElementById('main-temp').textContent = d.temp;
+      document.getElementById('headline').textContent = (key==='central')? 'Storm with Heavy Rain' : 'Weather Update';
+      document.getElementById('lead').textContent = d.lead;
+
+      // إضافة تأثير بسيط على البطاقة
+      const mainCard = document.getElementById('card-main-temp');
+      mainCard.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:360, easing:'ease-out'});
+
+      // تحديث بقية البطاقات بشكل توضيحي
+      const others = ['north','bandung','south'];
+      document.getElementById('c1-city').textContent = data[others[0]].city;
+      document.getElementById('c1-temp').textContent = data[others[0]].temp;
+      document.getElementById('c2-city').textContent = data[others[1]].city;
+      document.getElementById('c2-temp').textContent = data[others[1]].temp;
+      document.getElementById('c3-city').textContent = data[others[2]].city;
+      document.getElementById('c3-temp').textContent = data[others[2]].temp;
+
+      // لتجربة: تغيير خلفية المشهد بحسب المدينة
+      const scene = document.querySelector('.scene');
+      if(key==='bandung'){
+        scene.style.backgroundImage = "url('/img/b.png')";
+      } else if(key==='north'){
+        scene.style.backgroundImage = "url('/img/bg2.png')";
+      } else if(key==='south'){
+        scene.style.backgroundImage = "url('https://thrivingearthexchange.org/wp-content/uploads/2016/03/Brookline-Official-Image.jpg')";
+      } else {
+        scene.style.backgroundImage = "url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit=crop&w=1400&q=60')";
+      }
+
+    }));
+
+    // ضبط أول حالة عرض
+    document.querySelector('.sidebar .btn.active').click();
+  </script>
+</body>
+</html>
