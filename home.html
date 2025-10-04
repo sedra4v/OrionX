@@ -1,62 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCue - Weather Intelligence</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  </style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #19183B 0%, #2a2a61 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .float-wrapper {
+  position: relative; 
+  width: 50%;   /* حجم المكان اللي فيه الصورة */
+  height: 50%;
+ 
+  margin: 10px auto; /* يخليها بالنص */
+}
+
+.circle-bg {
+  position: absolute;
+  top: 20px;      /* يتحكم بارتفاع الدائرة */
+  left: 10px;     /* يتحكم بمكانها */
+  width: 140%;
+  height:100%;
+  background: rgba(100, 150, 255, 0.2); /* لون الدائرة */
+  border-radius: 50%;
+  filter: blur(50px);   /* البلور */
+  z-index: 1; /* تخليها ورا */
+}
+
+.astronaut {
+  animation: float 3s ease-in-out infinite;
+    position: relative;
+ margin-left: 20%;
+  margin-top: 10%;
+   margin-left: 10%;
+  z-index: 2;  /* الصورة فوق */
+}
+
+        /* Container 1 Styles */
+        .container1 {
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+       
+
+        /* Image and Text Section */
+        .img-text {
+            display: flex;
+            margin-right: 17%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .img-cont {
+            flex: 1;
+            margin-top: 10%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .float-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+         
+            z-index: -1;
+        }
+
+        .float-wrapper img {
+            max-width: 400px;
+            width: 100%;
+             margin-left: 10%;
+            height: auto;
+           
+ margin: 10%;
+            transition: transform 0.5s ease;
+        }
+
+        .float-wrapper img:hover {
+            transform: scale(1.09);
+        }
+
+        .text-cont {
+            flex: 1;
+            max-width: 500px;
+             margin-right: 1%;
+        }
+
+        .text-cont h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+             text-align: center;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .text-cont p {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        /* Boxes Section */
+        .boxes {
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .box {
+            width: 30%;
+        padding: 5%;
+            background: linear-gradient(135deg, #2a2a5a 0%, #3a3a7a 100%);
+            border-radius: 15px;
+            border: 2px solid #00d4ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .box:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        /* Container 2 Styles */
+        .container2 {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            margin: 7%;
+            background: linear-gradient(135deg, #1a1a3a 100%, #0a0a1a 100%);
+        }
+
+        /* Image Gallery 1 */
+        .Image-Gallery1 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .Image-Gallery1 img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+
+        .Image-Gallery1 img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            filter: brightness(1);
+        }
+
+        /* Gallery 2 */
+        .Gallery2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .gal1, .gal2 {
+            text-align: center;
+            width: 100%;
+            padding:65px;
+        
+            height: 500px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #2a2a5a 100%, #8d8ddd 100%);
+            border: 1px solid #00d4ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gal1::before, .gal2::before, .gal3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .gal1:hover::before, .gal2:hover::before, .gal3:hover::before {
+            transform: translateX(100%);
+        }
+
+        .gal1:hover, .gal2:hover, .gal3:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Background stars effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: -1;
+        }
+
+        .container2 h3{
+            margin-top: 3%;
+            text-align: center;
+            margin-bottom: 4%;
+
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .img-text {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .text-cont h2 {
+                font-size: 2.5rem;
+            }
+            
+            .Image-Gallery1 {
+                grid-template-columns: 1fr;
+            }
+            
+            .Gallery2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .boxes {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container1, .container2 {
+                padding: 1rem;
+            }
+            
+            .text-cont h2 {
+                font-size: 2rem;
+            }
+            
+            .box {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-cont ul {
+                gap: 1rem;
+            }
+        }
+
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container1, .container2 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); } /* يرتفع 20px */
+    100% { transform: translateY(0); }
+  }
+    </style>
 </head>
 <body>
     <!--container1-->
     <div class="container1">
-        <!--class nav-->
-        <div class="nav-cont">
-            <ul>
-                <li><a></a></li>
-                <li><a></a></li>
-                <li><a></a></li>
-                <li><a></a></li>
-            </ul>
-        </div>
+    
+       
         <!--text & container-->
         <div class="img-text">
-            <!--img container-->
-            <div class="img-cont">
-                <img src="Astronaut3.png" alt="Astronaut">
-            </div>
+            <div class="float-wrapper">
+  <!-- الخلفية الدائرية -->
+  <div height="70%" class="circle-bg"></div>
+  
+  <!-- الصورة -->
+  <img  src="img/Astronaut3.png" alt="Astronaut" class="astronaut">
+</div>
             <!--text container-->
-            <div class="text-cont">
+            <div class="text-cont" >
                 <h2>Meet SkyCue</h2>
                 <p>
-                    SkyCue is your intelligent weather guide.
-                    Powered by advanced data, it helps NASA predict the perfect conditions for rocket launches
-                    and gives you clear insights on whether it's rainy, sunny, or windy—so you can plan your day with confidence.
+                    SkyCue is your smart daily guide ,combining weather, farming, and travel insights to help you make the right choices, at the right time, in the right place
                 </p>
             </div>
         </div>
         <!--3 boxes-->
         <div class="boxes">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
+            <div class="box">Where to grow</div>
+            <div class="box">Where to go</div>
+           
         </div>
     </div>
     <!--container2-->
     <div class="container2">
-        <!--Image Gallery1-->
-        <div class="Image-Gallery1" >
-            <img src="img/Image1-Gallery1.png" alt="Launch Image 1">
-            <img src="img/Image2-Gallery1.png" alt="Launch Image 2">
-            <img src="img/Image3-Gallery1.png" alt="Launch Image 3">
-            <img src="img/Image4-Gallery1.png" alt="Launch Image 3">
-        </div>
-        <!--Div-->
-        <div class="Gallery2" >
-            <div class="gal1"></div>
-            <div class="gal2"></div>
-            <div class="gal3"></div>
-
+        <h3 >Our platform is your smart daily guide, offering two main features</h3>
+    
+        <div class="Gallery2">
+            <div class="gal1">
+              <img height="40%" src="https://images-assets.nasa.gov/image/NHQ202309270032/NHQ202309270032~medium.jpg"/>
+                 <h2>Where to grow</h2>
+              <h4 style="padding: 10%;">Pick your travel destination, 
+                    and we’ll provide weather conditions,
+                     key factors that might affect your trip, and practical tips
+                      for a smoother journey.</h4>
+            </div>
+            <div class="gal2">
+                 <img height="40%" src="https://images-assets.nasa.gov/image/GRC-2019-C-01953/GRC-2019-C-01953~medium.jpg"/>
+                 <h2>Where to grow</h2>
+                <h4 style="padding: 10%;"> Choose your city or region, and we’ll analyze climate data to show you the success rate for planting, along with tips for the best time and place to grow.</h4>
+            </div>
         </div>
     </div>
 </body>
